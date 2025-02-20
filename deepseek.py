@@ -15,26 +15,23 @@ def ask(system_prompt, ds_model, deepthink=True, print_log=True):
     )
 
     response_text = response['message']['content']
-    if print_log: print(response_text)
 
-    #thinkProcess = re.findall(r'<think>(.*?)</think>', response_text, flags=re.DOTALL)
+    thinkProcess = re.findall(r'<think>(.*?)</think>', response_text, flags=re.DOTALL)
 
-    #thinkProcess = "\n\n".join(thinkProcess).strip()
+    thinkProcess = "\n\n".join(thinkProcess).strip()
 
-    #clean = re.sub(r'<think>.*?</think>', '', response_text, flags=re.DOTALL).strip()
+    clean = re.sub(r'<think>.*?</think>', '', response_text, flags=re.DOTALL).strip()
 
-    return response_text
+    if print_log:
+        print(clean)
+
+    return clean, thinkProcess
 
 parser = argparse.ArgumentParser(description="User prompt")
 parser.add_argument("input", type=str, help="The string to be used as prompt")
-
 args = parser.parse_args()
+
 model = "deepseek-r1:14b"
+clean_text, think_process = ask(args.input, model)
 
 
-
-response = ask(args.input, model)
-
-print(response)
-
-print('\n')
