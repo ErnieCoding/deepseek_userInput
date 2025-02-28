@@ -34,5 +34,5 @@ parser = argparse.ArgumentParser(description='User prompt')
 parser.add_argument("input", type=str, help="The string to be used as prompt")
 args = parser.parse_args()
 
-model = "deepseek-r1:14b"
+model = "mistral-nemo:12b-instruct-2407-fp16"
 response = ask(args.input, model)
