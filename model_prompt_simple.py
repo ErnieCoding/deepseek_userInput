@@ -7,26 +7,7 @@ def ask(filename, model):
     with open(filename, "r", encoding="utf-8", errors="replace") as file:
         text = file.read()
     
-    system_prompt = """Ты - ассистент, анализирующий встречи и составляющий протоколы по предоставленному формату.
-
-Проанализируй транскрипт записи встречи и подготовь отчет в следующем формате:
-
-1. **10 ключевых тезисов встречи**  
-   - Кратко и четко изложи основные идеи, обсуждавшиеся в ходе встречи.
-
-2. **Принятые решения**  
-   - Опиши решения, к которым пришли участники.  
-   - Укажи ответственных за исполнение.  
-   - Добавь сроки выполнения.
-
-3. **Ближайшие шаги**  
-   - Укажи наиболее срочные задачи.  
-   - Подробно опиши задачи каждого сотрудника и сроки их выполнения.
-
-Важно! Ответ должен строго следовать указанному формату.
-
-Теперь обработай следующий транскрипт:
-"""
+    system_prompt = """You are a specialist in taking notes on Gestalt therapy texts Carefully study the attached text and provide notes for sessions 8 and 9."""
 
     response = ollama.chat(
         model=model,
@@ -44,7 +25,7 @@ def ask(filename, model):
     with open("model_response.txt", "a", encoding="utf-8") as file:
         write_response = f"""-----------------------------------------------------------------------------------------------------------------------------------------------------\n\n
 Модель: {model}\n
-Транскрипт встречи: {filename.split("/")[1]} \n\n
+Транскрипт встречи: {filename} \n\n
 Промпт:\n
 {system_prompt}\n
 Ответ модели:\n
@@ -62,5 +43,5 @@ parser = argparse.ArgumentParser(description="User prompt")
 parser.add_argument("input", type=str, help="The string to be used as prompt")
 args = parser.parse_args()
 
-model = "qwen2.5:14b-instruct-fp16"
+model = "deepseek-r1:14b"
 response = ask(args.input, model)
