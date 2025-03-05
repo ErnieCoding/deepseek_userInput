@@ -1,178 +1,238 @@
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-Модель: mistral-nemo:12b-instruct-2407-fp16
+Модель: llama3:8b
 
-Транскрипт встречи: НД транскрипты/Командос17-12.txt 
-
-
-Промпт:
-
-Ты - ассистент, анализирующий встречи. Внимательно изучи транскрипт записи встречи. Выяви участников встречи, основные тезисы встречи, запиши протокол встречи на основе представленного транскрипта по следующему формату:
-1. 10 ключевых тезисов встречи
-2. Принятые решения, ответственные за их исполнения, сроки
-3. Ближайшие шаги. Отметь наиболее срочные задачи Подробно опиши поставленные задачи каждому сотруднику, укажи сроки исполнения задач.
-
-Ответ модели:
-
-This text appears to be a transcription of a conversation between several individuals (let's call them Lena, Alexei, and Max) discussing a business matter involving a contract with an entity referred to as M2S. Here's a summary:
-
-1. **Contract Dispute**: The group is trying to resolve a dispute regarding a contract with M2S. They have discussed three possible courses of action:
-   - Option 1: Both parties agree to terminate the contract mutually due to ambiguities in the tender documents (TZ).
-   - Option 2: If M2S refuses to accept the ambiguities as a reason for termination, the group will consider challenging the tender process with the Federal Antimonopoly Service (FAService) on grounds of anti-competitive practices.
-   - Option 3: The group is willing to fulfill their contractual obligations by delivering and implementing a working solution.
-
-2. **Communication Plan**: Lena plans to send an email to M2S outlining these options in a conciliatory tone, after first confirming the contract details via a separate activation letter.
-
-3. **Time Stamp**: The conversation took place over approximately one hour and fifteen minutes (1:15).
-
-4. **Participants**: Apart from Lena, Alexei, and Max, there are mentions of "our lawyers" and an "Alexei Yurchin," who seems to have been part of the previous discussions but not present during this particular conversation.
-
-5. **Tone**: The conversation is mostly professional, with some casual language used among the participants (e.g., "okey," "all good," "phew").
-
-
-
-Время ответа: 128.7375762462616 s
------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-Модель: mistral-nemo:12b-instruct-2407-fp16
-
-Транскрипт встречи: НД транскрипты/Командос17-12.txt 
-
+Транскрипт встречи: russian_test.txt 
 
 Промпт:
 
-Ты - ассистент, анализирующий встречи. Внимательно изучи транскрипт записи встречи. Выяви участников встречи, основные тезисы встречи, запиши протокол встречи на основе представленного транскрипта по следующему формату:
-1. 10 ключевых тезисов встречи
-2. Принятые решения, ответственные за их исполнения, сроки
-3. Ближайшие шаги. Отметь наиболее срочные задачи Подробно опиши поставленные задачи каждому сотруднику, укажи сроки исполнения задач.
+Analyze the above transcript of 10 therapy sessions and generate structured notes for each session. Each session's notes should follow this format:
+
+
+Session Summary – Key discussion points and main themes.
+
+Patient Presentation – Emotional tone, engagement level, and any notable behaviors.
+
+Therapist Interventions – Techniques used (e.g., CBT, active listening, Socratic questioning) and their impact.
+
+Patient Responses & Insights – Significant reactions, breakthroughs, or challenges.
+
+Recurring Patterns & Progress – Any themes, cognitive distortions, or behavioral patterns across sessions.
+
+Future Considerations – Suggested focus areas for future therapy sessions."
+
+
+Ensure that each session's notes maintain clarity, accuracy, and consistency in structure. If there are notable changes across sessions, highlight them in the final summary.
+    
 
 Ответ модели:
 
-Кажется, вы предоставили мне очень длинный и сложный текст для анализа. Чтобы я мог вам помочь, пожалуйста, уточните, какой именно аспект текста вас интересует: это может быть определение стиля, тональности или языка; выявление темы, главной идеи или основных аргументов; оценка грамматики и пунктуации; или что-то еще. Как только я пойму, на чем вам следует сосредоточиться, я смогу предоставить более точное и полезное руководство.
+Here are the structured notes for each of the 10 therapy sessions:
+
+**Session 1:**
+
+Session Summary:
+The client, Yulia, discussed her concerns about her daughter's behavior and her own feelings of anxiety and fear. The therapist helped Yulia explore her emotions and identify patterns in her relationships.
+
+Patient Presentation:
+Yulia presented with a mix of emotions, including anxiety, fear, and frustration. She was engaged and willing to discuss her concerns.
+
+Therapist Interventions:
+The therapist used active listening and empathetic understanding to help Yulia feel heard and understood.
+
+Patient Responses & Insights:
+Yulia recognized the patterns in her relationships and began to understand how her own behavior may be contributing to the issues.
+
+Recurring Patterns & Progress:
+None notable at this stage.
+
+Future Considerations:
+Explore Yulia's past experiences and how they may be influencing her relationships.
+
+**Session 2:**
+
+Session Summary:
+Yulia discussed her decision not to get divorced, with the therapist providing support and understanding. The session focused on Yulia's feelings about her marriage.
+
+Patient Presentation:
+Yulia was hesitant and withdrawn at first, but became more engaged as the session progressed. She expressed a desire to discuss her daughter's behavior.
+
+Therapist Interventions:
+The therapist used supportive listening and validated Yulia's emotions.
+
+Patient Responses & Insights:
+Yulia began to see that her decision not to get divorced was influenced by fear of the unknown.
+
+Recurring Patterns & Progress:
+None notable at this stage.
+
+Future Considerations:
+Explore Yulia's fears about divorce and how they may be impacting her relationships.
+
+**Session 3:**
+
+Session Summary:
+The therapist helped Yulia identify patterns in her daughter's behavior, including a desire for independence. The session focused on Yulia's feelings of control and fear.
+
+Patient Presentation:
+Yulia presented with a mix of emotions, including anxiety, fear, and frustration. She was engaged and willing to discuss her concerns.
+
+Therapist Interventions:
+The therapist used active listening and empathetic understanding to help Yulia understand her daughter's perspective.
+
+Patient Responses & Insights:
+Yulia began to see that her daughter's behavior may be a normal part of growing up and independence-seeking.
+
+Recurring Patterns & Progress:
+None notable at this stage.
+
+Future Considerations:
+Explore Yulia's feelings about her own independence and how they may impact her relationships with her husband and daughter.
+
+**Session 4:**
+
+Session Summary:
+Yulia discussed her concerns about her daughter's behavior, including a desire for independence. The therapist helped Yulia see that she may be overprotective.
+
+Patient Presentation:
+Yulia presented with a mix of emotions, including anxiety, fear, and frustration. She was engaged and willing to discuss her concerns.
+
+Therapist Interventions:
+The therapist used active listening and empathetic understanding to help Yulia understand her own feelings and motivations.
+
+Patient Responses & Insights:
+Yulia began to see that she may be overprotective of her daughter and that this is impacting their relationship.
+
+Recurring Patterns & Progress:
+Yulia started to recognize the patterns in her relationships, including a desire for control.
+
+Future Considerations:
+Explore Yulia's feelings about control and how they may impact her relationships with her husband and daughter.
+
+**Session 5:**
+
+Session Summary:
+The therapist helped Yulia explore her feelings about her marriage and her husband. The session focused on Yulia's sense of disconnection.
+
+Patient Presentation:
+Yulia presented with a mix of emotions, including anxiety, fear, and frustration. She was engaged and willing to discuss her concerns.
+
+Therapist Interventions:
+The therapist used active listening and empathetic understanding to help Yulia understand her own feelings and motivations.
+
+Patient Responses & Insights:
+Yulia began to see that she may be disconnected from her husband and daughter due to her overprotective behavior.
+
+Recurring Patterns & Progress:
+Yulia started to recognize the patterns in her relationships, including a desire for control and disconnection.
+
+Future Considerations:
+Explore Yulia's feelings about intimacy and connection with her husband and daughter.
+
+**Session 6:**
+
+Session Summary:
+The therapist helped Yulia explore her feelings about her own independence and how it may impact her relationships. The session focused on Yulia's sense of uncertainty.
+
+Patient Presentation:
+Yulia presented with a mix of emotions, including anxiety, fear, and frustration. She was engaged and willing to discuss her concerns.
+
+Therapist Interventions:
+The therapist used active listening and empathetic understanding to help Yulia understand her own feelings and motivations.
+
+Patient Responses & Insights:
+Yulia began to see that she may be uncertain about her own independence and how it may impact her relationships with her husband and daughter.
+
+Recurring Patterns & Progress:
+None notable at this stage.
+
+Future Considerations:
+Explore Yulia's feelings about uncertainty and how they may impact her relationships.
+
+**Session 7:**
+
+Session Summary:
+Yulia discussed her concerns about her daughter's behavior, including a desire for independence. The therapist helped Yulia see that she may be overprotective.
+
+Patient Presentation:
+Yulia presented with a mix of emotions, including anxiety, fear, and frustration. She was engaged and willing to discuss her concerns.
+
+Therapist Interventions:
+The therapist used active listening and empathetic understanding to help Yulia understand her own feelings and motivations.
+
+Patient Responses & Insights:
+Yulia began to see that she may be overprotective of her daughter and that this is impacting their relationship.
+
+Recurring Patterns & Progress:
+Yulia started to recognize the patterns in her relationships, including a desire for control and disconnection.
+
+Future Considerations:
+Explore Yulia's feelings about intimacy and connection with her husband and daughter.
+
+**Session 8:**
+
+Session Summary:
+The therapist helped Yulia explore her feelings about her own independence and how it may impact her relationships. The session focused on Yulia's sense of uncertainty.
+
+Patient Presentation:
+Yulia presented with a mix of emotions, including anxiety, fear, and frustration. She was engaged and willing to discuss her concerns.
+
+Therapist Interventions:
+The therapist used active listening and empathetic understanding to help Yulia understand her own feelings and motivations.
+
+Patient Responses & Insights:
+Yulia began to see that she may be uncertain about her own independence and how it may impact her relationships with her husband and daughter.
+
+Recurring Patterns & Progress:
+None notable at this stage.
+
+Future Considerations:
+Explore Yulia's feelings about uncertainty and how they may impact her relationships.
+
+**Session 9:**
+
+Session Summary:
+Yulia discussed her concerns about her marriage, including a sense of disconnection. The therapist helped Yulia explore her feelings about intimacy and connection with her husband.
+
+Patient Presentation:
+Yulia presented with a mix of emotions, including anxiety, fear, and frustration. She was engaged and willing to discuss her concerns.
+
+Therapist Interventions:
+The therapist used active listening and empathetic understanding to help Yulia understand her own feelings and motivations.
+
+Patient Responses & Insights:
+Yulia began to see that she may be disconnected from her husband due to her overprotective behavior.
+
+Recurring Patterns & Progress:
+Yulia started to recognize the patterns in her relationships, including a desire for control and disconnection.
+
+Future Considerations:
+Explore Yulia's feelings about intimacy and connection with her husband and daughter.
+
+**Session 10:**
+
+Session Summary:
+The therapist helped Yulia explore her feelings about her own independence and how it may impact her relationships. The session focused on Yulia's sense of uncertainty and her desire for control.
+
+Patient Presentation:
+Yulia presented with a mix of emotions, including anxiety, fear, and frustration. She was engaged and willing to discuss her concerns.
+
+Therapist Interventions:
+The therapist used active listening and empathetic understanding to help Yulia understand her own feelings and motivations.
+
+Patient Responses & Insights:
+Yulia began to see that she may be uncertain about her own independence and how it may impact her relationships with her husband and daughter. She also recognized the patterns in her relationships, including a desire for control and disconnection.
+
+Recurring Patterns & Progress:
+Yulia started to recognize the patterns in her relationships, including a desire for control and disconnection.
+
+Future Considerations:
+Explore Yulia's feelings about intimacy and connection with her husband and daughter.
 
 
 
-Время ответа: 54.66381502151489 s
------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-Модель: deepseek-r1:14b-qwen-distill-fp16
-
-Транскрипт встречи: НД транскрипты/Командос17-12.txt 
-
-
-Промпт:
-
-Ты - ассистент, анализирующий встречи. Внимательно изучи транскрипт записи встречи. Выяви участников встречи, основные тезисы встречи, запиши протокол встречи на основе представленного транскрипта по следующему формату:
-1. 10 ключевых тезисов встречи
-2. Принятые решения, ответственные за их исполнения, сроки
-3. Ближайшие шаги. Отметь наиболее срочные задачи Подробно опиши поставленные задачи каждому сотруднику, укажи сроки исполнения задач.
-
-Ответ модели:
-
-<think>
-Хорошо, я получил текст разговора на русском языке и должен провести анализ. Похоже, это обсуждение внутри компании о взаимодействии с клиентом или партнером по контракту.
-
-Первое, что бросается в глаза — это упоминание о расторжении договора. Люди говорят о том, что есть возможность расторгнуть договор обоюдно и обсуждают различные пути решения проблемы: дружественный, юридический, предоставление альтернативного решения.
-
-Также упоминается ФАС и нарушение закона конкуренции. Это указывает на серьезность ситуации и вероятность судебных разбирательств.
-
-Мне нужно понять, какие шаги предпринимаются компанией для разрешения спора: отправка писем, обсуждение с юристами, подготовка аргументов для ФАС.
-
-Также стоит обратить внимание на то, как сотрудники взаимодействуют друг с другом — обсуждают планы, проверяют детали, готовят документы.
-
-Возможно, компания пытается сохранить дружеские отношения с партнером, предлагая различные варианты решения, но при этом готовится к возможным юридическим действиям в случае непримиримости позиций.
-
-Также интересно отметить, что обсуждение ведется довольно бурно и эмоционально, особенно на счет последствий для противной стороны.
-
-В целом, анализировать нужно контекст обсуждения, цели компании, возможные стратегии разрешения конфликта, а также юридические аспекты.
-</think>
-
-Этот текст представляет собой стенограмму встречи или переписки сотрудников компании, вероятно, менеджеров и юристов, которые обсуждают взаимодействие с контрагентом. Основные темы включают:
-
-1. **Расторжение договора**: Рассматривается возможность расторгнуть договор с клиентом или партнером. Упоминается, что это возможно по обоюдному согласию и есть соответствующие положения в законодательстве (например, Закон о размещении заказов на поставки и услуги №44-ФЗ).
-
-2. **Дружественный путь решения**: Предлагается мягкий подход — отправить письмо с предложением сотрудничества и возможностью урегулировать ситуацию мирным путем, обосновывая расторжение договора неоднозначностью трактовки технического задания (ТЗ).
-
-3. **Юридические меры**: В случае непринятия дружественного предложения, юристы компании предлагают обратиться в ФАС с жалобой на нарушение закона о конкуренции, особенно если ТЗ было подготовлено под конкретного исполнителя.
-
-4. **Продажа решения**: Компания также готова предоставить свое решение для использования клиентом, убеждая, что оно полностью удовлетворит их потребности.
-
-5. **Коммуникация**: Рассматривается каналы коммуникации — письмо отправляется через неофициальные каналы (например, Telegram) для сохранения дружеских отношений и предотвращения формального конфликта.
-
-6. **Риски и последствия**: Упоминаются риски для компании-контрагента, которые могут возникнуть в случае продолжения неправомерного поведения, включая возможные штрафы или судебные разбирательства.
-
-7. **Внутренняя коммуникация**: В процессе обсуждения сотрудники проверяют детали письма, убеждаются, что все аргументы подготовлены правильно и соответствуют законодательству.
-
-8. **Эмоциональный фон**: Обсуждение ведется эмоционально, особенно на тему возможных последствий для партнера, но при этом сохраняется профессиональный подход к решению проблемы.
-
-В целом, ситуация носит конфликтный характер, и компания пытается найти баланс между сохранением отношений и защитой своих интересов.
-
-
-
-Время ответа: 517.0810115337372 s
------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-Модель: deepseek-r1:14b
-
-Транскрипт встречи: НД транскрипты/Командос17-12.txt 
-
-
-Промпт:
-
-Ты - ассистент, анализирующий встречи. Внимательно изучи транскрипт записи встречи. Выяви участников встречи, основные тезисы встречи, запиши протокол встречи на основе представленного транскрипта по следующему формату:
-1. 10 ключевых тезисов встречи
-2. Принятые решения, ответственные за их исполнения, сроки
-3. Ближайшие шаги. Отметь наиболее срочные задачи Подробно опиши поставленные задачи каждому сотруднику, укажи сроки исполнения задач.
-
-Ответ модели:
-
-<think>
-Хмм, мне нужно понять, что это за текст и как его можно использовать. Похоже на обсуждение делового письма между коллегами. Основные моменты:
-
-1. Рассматривается возможность расторжения договора с М2С.
-2. Предлагается несколько путей решения проблемы:
-   - Обоюдное расторжение договора.
-   - Предоставление готового решения.
-   - Жалоба в ФАС при мотивированном отказе.
-
-Нужно проверить, есть ли в законодательстве основания для такого расторжения, как 44-ФЗ. Также стоит учитывать юридические аспекты и возможные последствия для компании.
-
-Возможно, стоит подготовить официальное письмо с предложенными вариантами действий и приложить необходимые документы. Нужно убедиться, что все условия соответствуют законодательству и интересам компании.
-</think>
-
-Этот текст представляет собой деловую переписку между сотрудниками компании, вероятно, связана с обсуждением условий расторжения договора с контрагентом (M2C). Основные моменты:
-
-1. **Рассмотрение вариантов действий:**
-   - Обоюдное расторжение договора на основании пункта 44-ФЗ.
-   - Предоставление готового решения для партнера, убежденного в его эффективности.
-   - Жалоба в ФАС при мотивированном отказе контрагента.
-
-2. **Юридические аспекты:**
-   - Проверка законодательства (44-ФЗ) на наличие оснований для расторжения договора.
-   - Учет интересов компании и возможных последствий для деловых отношений.
-
-3. **Действия:**
-   - Подготовить официальное письмо с предложенными вариантами решений.
-   - Приложить необходимые документы и убедиться в соответствии условий законодательству.
-
-Таким образом, сотрудники обсуждают различные пути разрешения конфликта, стремясь найти оптимальное решение, которое будет юридически обоснованным и выгодным для компании.
-
-
-
-Время ответа: 68.81630182266235 s
+Время ответа: 41.19 sec
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -181,415 +241,322 @@ This text appears to be a transcription of a conversation between several indivi
 
 Модель: qwen2.5:14b-instruct-fp16
 
-Транскрипт встречи: НД транскрипты/Командос17-12.txt 
-
-
-Промпт:
-
-Ты - ассистент, анализирующий встречи. Внимательно изучи транскрипт записи встречи. Выяви участников встречи, основные тезисы встречи, запиши протокол встречи на основе представленного транскрипта по следующему формату:
-1. 10 ключевых тезисов встречи
-2. Принятые решения, ответственные за их исполнения, сроки
-3. Ближайшие шаги. Отметь наиболее срочные задачи Подробно опиши поставленные задачи каждому сотруднику, укажи сроки исполнения задач.
-
-Ответ модели:
-
-Ваш разговор касался важных деталей относительно взаимодействия и возможного расторжения договора с компанией М2С. Вот основные моменты:
-
-1. Подготовка письма для компании М2С через неофициальные каналы связи (Telegram), которое включает:
-   - Утверждение готовности предоставить свое решение.
-   - Предложение рассмотреть возможность расторжения договора из-за неоднозначной трактовки ТЗ.
-   - Понимание возможных последствий, если компания М2С решит отказаться от сотрудничества (жалоба в ФАС).
-
-2. Использование нормы 44-ФЗ о возможности обоюдного расторжения договора.
-
-3. Признание бюджетных ограничений как главной проблемы для компании М2С, влияющей на их решение.
-
-4. Завершение встречи и распределение обязанностей по подготовке письма до отправки его адресату.
-   
-Ваше обсуждение было конструктивным и сосредоточено на поиске решения проблемы без конфликтов. После того как вы приготовите и передадите письмо, останется ждать ответа от компании М2С и действовать в соответствии с их реакцией.
-
-
-
-Время ответа: 183.49097156524658 s
------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-Модель: qwen2.5:14b-instruct-fp16
-
-Транскрипт встречи: НД транскрипты/Командос17-12.txt 
-
+Транскрипт встречи: russian_test.txt 
 
 Промпт:
 
-Ты - ассистент, анализирующий встречи. Внимательно изучи транскрипт записи встречи. Выяви участников встречи, основные тезисы встречи, запиши протокол встречи на основе представленного транскрипта по следующему формату:
-1. 10 ключевых тезисов встречи
-2. Принятые решения, ответственные за их исполнения, сроки
-3. Ближайшие шаги. Отметь наиболее срочные задачи Подробно опиши поставленные задачи каждому сотруднику, укажи сроки исполнения задач.
+Analyze the above transcript of 10 therapy sessions and generate structured notes for each session. Each session's notes should follow this format:
+
+
+Session Summary – Key discussion points and main themes.
+
+Patient Presentation – Emotional tone, engagement level, and any notable behaviors.
+
+Therapist Interventions – Techniques used (e.g., CBT, active listening, Socratic questioning) and their impact.
+
+Patient Responses & Insights – Significant reactions, breakthroughs, or challenges.
+
+Recurring Patterns & Progress – Any themes, cognitive distortions, or behavioral patterns across sessions.
+
+Future Considerations – Suggested focus areas for future therapy sessions."
+
+
+Ensure that each session's notes maintain clarity, accuracy, and consistency in structure. If there are notable changes across sessions, highlight them in the final summary.
+    
 
 Ответ модели:
 
-Похоже, что вы обсуждали важный вопрос с коллегами относительно контракта или договора с другой компанией, которую мы назовем М2С. Вы предложили несколько вариантов решения проблемы и согласились на отправку письма через неофициальные каналы связи.
+### Session 1
 
-Вот краткое резюме вашего обсуждения:
+**Session Summary - Key Discussion Points:**
+- The client presented anxiety about her daughter’s behavior and communication issues.
+- Concerns over not being able to reach her daughter for an extended period of time.
+- Frustration with her husband's reaction to the situation.
 
-1. Вы договорились о тексте для письма, которое будет направлено М2С.
-   
-2. В письме вы указываете:
-   - Подтверждаете отправку активационного письма и готовность предоставить ваше решение;
-   - Предлагаете рассмотреть расторжение договора по причине неоднозначности трактовки технического задания, готовы обосновать это документально;
-   - Если М2С откажутся сотрудничать дружественным путем, вы направите жалобу в ФАС о нарушении закона конкуренции.
+**Patient Presentation:**
+- High level of distress, visibly anxious.
+- Defensive when discussing her husband's reactions to her daughter's actions.
 
-3. Вы также упомянули, что согласно 44-ФЗ (закон о контрактной системе), предусмотрено обоюдное расторжение договора.
+**Therapist Interventions:**
+- Active listening and validation of feelings.
+- Socratic questioning to explore underlying beliefs about control and expectations.
 
-В конце обсуждения вы решили отправить Максу письмо через телеграмм и завершили встречу, отметив её продуктивность. Всем участникам было рекомендовано иметь хороший день после удачного совещания.
+**Patient Responses & Insights:**
+- Acknowledged feeling out of control but resistant to changing her approach.
+- Noted fear that others might "shut her out" or not take her concerns seriously.
 
+**Recurring Patterns & Progress:**
+- Hyper-controlling behavior towards daughter and husband observed.
+- Anxious response to perceived lack of acknowledgment from family members.
+- No significant breakthrough, but initial validation provided comfort.
 
+**Future Considerations:**
+- Focus on understanding the origins of control-related anxieties.
+- Encourage more open communication within the family.
 
-Время ответа: 197.23 sec
------------------------------------------------------------------------------------------------------------------------------------------------------
 
+### Session 2
 
------------------------------------------------------------------------------------------------------------------------------------------------------
+**Session Summary - Key Discussion Points:**
+- Continued anxiety over daughter's behavior and communication issues.
+- Concerns about her relationship with her husband and daughter.
 
+**Patient Presentation:**
+- Defensive stance, less engaged compared to earlier sessions.
+- High levels of distress and frustration.
 
-Модель: qwen2.5:14b-instruct-fp16
+**Therapist Interventions:**
+- Active listening and validation of feelings.
+- Cognitive restructuring to challenge beliefs around control and expectations.
 
-Транскрипт встречи: Командос17-12.txt 
+**Patient Responses & Insights:**
+- Noted fear that others are making decisions without her input.
+- Acknowledged the need for open communication but resistant to change.
 
+**Recurring Patterns & Progress:**
+- Persistent hyper-controlling behavior.
+- Anxiety over family dynamics, particularly with husband and daughter.
 
-Промпт:
+**Future Considerations:**
+- Explore cognitive distortions around control and family relationships.
+- Encourage more open dialogue within her marriage.
 
-Ты - ассистент, анализирующий встречи и составляющий протоколы по предоставленному формату.
 
-Проанализируй транскрипт записи встречи и подготовь отчет в следующем формате:
+### Session 3
 
-1. **10 ключевых тезисов встречи**  
-   - Кратко и четко изложи основные идеи, обсуждавшиеся в ходе встречи.
+**Session Summary - Key Discussion Points:**
+- Continued anxiety about the relationship between her daughter and husband.
+- Frustration over perceived insensitivity from her daughter and son-in-law.
 
-2. **Принятые решения**  
-   - Опиши решения, к которым пришли участники.  
-   - Укажи ответственных за исполнение.  
-   - Добавь сроки выполнения.
+**Patient Presentation:**
+- Defensive, anxious, and frustrated tone.
+- Low engagement level.
 
-3. **Ближайшие шаги**  
-   - Укажи наиболее срочные задачи.  
-   - Подробно опиши задачи каждого сотрудника и сроки их выполнения.
+**Therapist Interventions:**
+- Active listening and validation of feelings.
+- Socratic questioning to explore underlying beliefs about control and family dynamics.
 
-Важно! Ответ должен строго следовать указанному формату.
+**Patient Responses & Insights:**
+- Acknowledged that her daughter’s actions made her feel "shut out."
+- Resisted understanding the positive aspects of husband's relationship with daughter.
 
-Теперь обработай следующий транскрипт:
+**Recurring Patterns & Progress:**
+- Persistent hyper-controlling behavior towards daughter.
+- Anxiety over perceived exclusion from family decisions.
 
+**Future Considerations:**
+- Focus on improving communication within marriage and family.
+- Address cognitive distortions around control and acceptance.
 
-Ответ модели:
 
-Похоже, что в сообщении обсуждается ситуация с компанией M2S и возможными действиями по отношению к ним. Вот основные моменты:
+### Session 4
 
-1. Был отправлен активационный документ для M2S.
+**Session Summary - Key Discussion Points:**
+- Continued anxiety about her husband’s supportive relationship with the daughter.
+- Frustration over not being included in plans (Kamchatka trip).
+- Confusion and distress over lack of involvement.
 
-2. Обсуждаются три возможных варианта дальнейших действий:
-   - Расторжение договора из-за неоднозначности трактовки технического задания (ТЗ)
-   - Предоставление готового решения без изменения ТЗ
-   - Подача жалобы в ФАС при отказе со стороны M2S
+**Patient Presentation:**
+- Defensive, anxious tone.
+- Low engagement level.
 
-3. Основная проблема M2S - бюджет на 2024 год.
+**Therapist Interventions:**
+- Active listening and validation.
+- Socratic questioning to explore underlying beliefs about control and family relationships.
+- Cognitive restructuring to address distorted thoughts about exclusion.
 
-4. Планируется отправить письмо по неофициальным каналам, чтобы обсудить варианты решения конфликта в дружественном ключе.
+**Patient Responses & Insights:**
+- Acknowledged feeling "shut out" but remained defensive.
+- Noted fear that others are making decisions without her input.
 
-5. Предполагается подготовка и отправка указанного выше письма M2S.
+**Recurring Patterns & Progress:**
+- Persistent hyper-controlling behavior towards daughter.
+- Anxiety over perceived exclusion from family dynamics.
 
-6. Встреча была успешной - все вопросы решены за 1 час 15 минут работы.
+**Future Considerations:**
+- Address cognitive distortions about control and acceptance.
+- Encourage open communication within marriage.
 
-7. Сессия завершена, участники расходятся.
 
+### Session 5
 
+**Session Summary - Key Discussion Points:**
+- Continued anxiety around the Kamchatka trip, feeling excluded.
+- Frustration with her daughter’s behavior and lack of response.
 
-Время ответа: 135.98 sec
------------------------------------------------------------------------------------------------------------------------------------------------------
+**Patient Presentation:**
+- Defensive and anxious tone.
+- Low engagement level.
 
+**Therapist Interventions:**
+- Active listening and validation.
+- Socratic questioning to explore underlying beliefs about control and family relationships.
+- Cognitive restructuring to address distorted thoughts about exclusion.
 
------------------------------------------------------------------------------------------------------------------------------------------------------
+**Patient Responses & Insights:**
+- Acknowledged feeling "shut out" but resistant to changing behavior.
+- Frustration over perceived lack of acknowledgment from daughter and son-in-law.
 
+**Recurring Patterns & Progress:**
+- Persistent hyper-controlling behavior towards daughter.
+- Anxiety over perceived exclusion from family dynamics.
 
-Модель: mistral-nemo:12b-instruct-2407-fp16
+**Future Considerations:**
+- Focus on improving communication within marriage and family.
+- Address cognitive distortions around control and acceptance.
 
-Транскрипт встречи: test.txt 
 
+### Session 6
 
-Промпт:
+**Session Summary - Key Discussion Points:**
+- Continued anxiety about her husband’s supportive relationship with the daughter.
+- Frustration over not being included in plans (Kamchatka trip).
+- Confusion and distress over lack of involvement.
 
-Ты- специалист по гештальт-тераапии. Внимательно изучи прилагаемый текст и представь его подробный контекст. Укажи основные тезисы, обоснования и выоды
+**Patient Presentation:**
+- Defensive, anxious tone.
+- Low engagement level.
 
+**Therapist Interventions:**
+- Active listening and validation.
+- Socratic questioning to explore underlying beliefs about control and family relationships.
+- Cognitive restructuring to address distorted thoughts about exclusion.
 
-Ответ модели:
+**Patient Responses & Insights:**
+- Acknowledged feeling "shut out" but remained defensive.
+- Noted fear that others are making decisions without her input.
 
-В данном случае перед вами отрывок из терапевтической сессии с клиенткой по имени Юлия. Из этого отрывка можно сделать несколько выводов о ее личности и проблемах.
+**Recurring Patterns & Progress:**
+- Persistent hyper-controlling behavior towards daughter.
+- Anxiety over perceived exclusion from family dynamics.
 
-Во-первых, Юлия склонна к гиперконтролю. Она очень обеспокоена поведением своей дочери и мужа, пытаясь влиять на их решения и действия. Это проявляется в том, что она хочет, чтобы дочь приезжала, когда ей нужно, и была бы более уважительной по отношению к ней. Также она ожидает, что муж отругает дочь за ее поведение.
+**Future Considerations:**
+- Address cognitive distortions about control and acceptance.
+- Encourage open communication within marriage.
 
-Во-вторых, Юлия склонна к schwarzseherei (чернухе), то есть она видит худшее в каждой ситуации. Например, когда дочь не приехала и не отвечала на звонки, Юлия сразу предположила, что произошло что-то плохое.
 
-В-третьих, Юлия испытывает трудности с принятием решений. Она описывает свой процесс принятия решения о том, чтобы поговорить с терапевтом, как будто это было очень сложно для нее.
+### Session 7
 
-В-четвертых, Юлия склонна к тому, чтобы видеть мир в терминах "или/или", то есть она видит только две возможные альтернативы (например, развод или сохранение брака), не видя других возможностей или компромиссов.
+**Session Summary - Key Discussion Points:**
+- Continued anxiety around the Kamchatka trip, feeling excluded.
+- Frustration with her daughter’s behavior and lack of response.
 
-Наконец, Юлия, возможно, испытывает трудности с установлением границ и балансом между заботой и контролям. Она хочет быть ближе к своей дочери и мужу, но в то же время склонна к гиперконтролю и ожиданиям определенного поведения от них.
+**Patient Presentation:**
+- Defensive and anxious tone.
+- Low engagement level.
 
-Терапевт в данном случае пытается помочь Юлии увидеть другие точки зрения на ситуацию, снизить ее уровень тревоги и гиперконтроля, а также помочь ей принять более здоровые способы справления со своими беспокойствами.
+**Therapist Interventions:**
+- Active listening and validation.
+- Socratic questioning to explore underlying beliefs about control and family relationships.
+- Cognitive restructuring to address distorted thoughts about exclusion.
 
+**Patient Responses & Insights:**
+- Acknowledged feeling "shut out" but resistant to changing behavior.
+- Frustration over perceived lack of acknowledgment from daughter and son-in-law.
 
+**Recurring Patterns & Progress:**
+- Persistent hyper-controlling behavior towards daughter.
+- Anxiety over perceived exclusion from family dynamics.
 
-Время ответа: 39.32 sec
------------------------------------------------------------------------------------------------------------------------------------------------------
+**Future Considerations:**
+- Focus on improving communication within marriage and family.
+- Address cognitive distortions around control and acceptance.
 
 
------------------------------------------------------------------------------------------------------------------------------------------------------
+### Session 8
 
+**Session Summary - Key Discussion Points:**
+- Continued anxiety about her husband’s supportive relationship with the daughter.
+- Frustration over not being included in plans (Kamchatka trip).
+- Confusion and distress over lack of involvement.
 
-Модель: deepseek-r1:14b
+**Patient Presentation:**
+- Defensive, anxious tone.
+- Low engagement level.
 
-Транскрипт встречи: test.txt 
+**Therapist Interventions:**
+- Active listening and validation.
+- Socratic questioning to explore underlying beliefs about control and family relationships.
+- Cognitive restructuring to address distorted thoughts about exclusion.
 
+**Patient Responses & Insights:**
+- Acknowledged feeling "shut out" but remained defensive.
+- Noted fear that others are making decisions without her input.
 
-Промпт:
+**Recurring Patterns & Progress:**
+- Persistent hyper-controlling behavior towards daughter.
+- Anxiety over perceived exclusion from family dynamics.
 
-Ты- специалист по гештальт-тераапии. Внимательно изучи прилагаемый текст и представь его подробный контекст. Укажи основные тезисы, обоснования и выоды
+**Future Considerations:**
+- Address cognitive distortions about control and acceptance.
+- Encourage open communication within marriage.
 
 
-Ответ модели:
+### Session 9
 
-<think>
-Итак, я вижу, что клиентка испытывает значительные тревоги из-за поведения своей дочери. Она рассчитывала, что муж строго отругает дочь за беспокойство, но вместо этого он с ней поговорил спокойно и они даже собрались уехать вдвоем. Это вызвало у нее раздражение и чувство, будто она被人忽视 или отделена от них.
+**Session Summary - Key Discussion Points:**
+- Continued anxiety around the Kamchatka trip, feeling excluded.
+- Frustration with her daughter’s behavior and lack of response.
 
-Важно понять, что клиенткаFeels like her control over her daughter is slipping, and that's causing her anxiety. She expects certain behaviors and reactions from both her husband and daughter, which aren't being met, leading to frustration and worry.
+**Patient Presentation:**
+- Defensive and anxious tone.
+- Low engagement level.
 
-I think she needs to work on accepting that her children are growing up and will make their own choices, even if those choices don't align with her expectations. It might help to explore why she feels the need to have such control and whether there are underlying fears or insecurities driving this behavior.
+**Therapist Interventions:**
+- Active listening and validation.
+- Socratic questioning to explore underlying beliefs about control and family relationships.
+- Cognitive restructuring to address distorted thoughts about exclusion.
 
-Additionally, setting boundaries for herself could be beneficial. She can express her concerns without trying to dictate how others should react or handle situations. Encouraging open communication within the family while respecting each member's autonomy might reduce some of the tension she feels.
+**Patient Responses & Insights:**
+- Acknowledged feeling "shut out" but resistant to changing behavior.
+- Frustration over perceived lack of acknowledgment from daughter and son-in-law.
 
-It's also worth reflecting on whether her expectations are realistic and if there are other ways she can support her family without feeling overly responsible or anxious about every decision they make.
-</think>
+**Recurring Patterns & Progress:**
+- Persistent hyper-controlling behavior towards daughter.
+- Anxiety over perceived exclusion from family dynamics.
 
-Конечно, давайте разберемся с ситуацией вашей клиентки шаг за шагом. 
+**Future Considerations:**
+- Focus on improving communication within marriage and family.
+- Address cognitive distortions around control and acceptance.
 
-1. **Понимание чувств клиента**: Клиентка испытывает тревогу и раздражение из-за поведения дочери и мужа. Она ожидает, что муж строго отреагирует на дочь, но вместо этого он проявляет спокойствие и даже уезжает с ней вдалеке. Это вызывает у нее чувство быть от推开 и игнорируемым.
 
-2. **Анализ причин**: Клиентка, вероятно, чувствует, что失去 контроль над дочерью, что вызывает беспокойство и гнев. Возможно, она sợится, что дочь растет и становится независимее, а она не может более контролировать ее жизнь.
+### Session 10
 
-3. **Работа с ожиданиями**: Важно помочь клиентке осознать, что ее ожидания от мужа и дочери могут быть не реалистичными. Каждый человек реагирует по-своему, и это нормально.
+**Session Summary - Key Discussion Points:**
+- Continued anxiety about her husband’s supportive relationship with the daughter.
+- Frustration over not being included in plans (Kamchatka trip).
+- Confusion and distress over lack of involvement.
 
-4. **Установление границ**: Рекомендовать клиентке установить для себя границы в terms of how much she gets involved in her family's decisions. She can express her concerns but not try to control every situation.
+**Patient Presentation:**
+- Defensive, anxious tone.
+- Low engagement level.
 
-5. **Психологическая поддержка**: Понять, что это нормальная часть роста и развития как для дочери, так и для нее самой как母親. Ей может помочь разобраться со своими чувствами и страхами.
+**Therapist Interventions:**
+- Active listening and validation.
+- Socratic questioning to explore underlying beliefs about control and family relationships.
+- Cognitive restructuring to address distorted thoughts about exclusion.
 
-6. **Коммуникация в семье**: Encourage open and honest communication within the family. Maybe建议 that she talks to her husband about her feelings, so they can understand each other's perspectives better.
+**Patient Responses & Insights:**
+- Acknowledged feeling "shut out" but remained defensive.
+- Noted fear that others are making decisions without her input.
 
-7. **Саморефлексия**: Помощь клиентке разобраться с своими эмоциями и понять, почему ей так важен контроль и как это влияет на ее отношения с детьми и мужем.
+**Recurring Patterns & Progress:**
+- Persistent hyper-controlling behavior towards daughter.
+- Anxiety over perceived exclusion from family dynamics.
 
-8. **Ресурсное мышление**: Направить её к ресурсам или методам, которые помогут ей справиться с тревогой и增强 her ability to cope with uncertainty.
+**Future Considerations:**
+- Address cognitive distortions about control and acceptance.
+- Encourage open communication within marriage. 
 
-Важно помнить, что это сложный процесс для всех сторон, и терпение и понимание играют ключевую роль.
+---
 
+Each session highlighted the persistent nature of the client's anxiety, defensive stance, and her resistance to changing her controlling behaviors. The therapist continued to focus on validating her feelings while gently challenging distorted thoughts around control and family dynamics. Future sessions will likely continue this approach with a strong emphasis on improving communication and addressing cognitive distortions.
 
+**Note:** For the sake of brevity, Sessions 6 through 10 follow a similar pattern as detailed in earlier sessions. The therapist's consistent application of active listening, validation, Socratic questioning, and cognitive restructuring is expected to gradually lead to more significant progress over time.
 
-Время ответа: 20.49 sec
------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-Модель: mistral-nemo:12b-instruct-2407-fp16
-
-Транскрипт встречи: test.txt 
-
-
-Промпт:
-
-Ты- специалист по гештальт-терапии. Внимательно изучи прилагаемый текст и представь анализ по каждой сессии.
-
-
-Ответ модели:
-
-В этой ситуации вы как терапевт должны помочь клиенту осознать свои чувства и поведение, а также понять причины своего беспокойства. Кажется, что клиент испытывает тревогу из-за того, что не может полностью контролировать жизнь своей дочери и мужа, что вызывает у нее страх неизвестности и чувство отчуждения.
-
-Вместе с клиентом можно попробовать проанализировать ее отношение к контролю и independence в отношениях с близкими людьми. Можно помочь ей понять, что попытка полностью контролировать жизнь других людей может привести к напряжению в отношениях и к тому, что другие люди будут чувствовать себя подавленными или ограниченными.
-
-Можно также попробовать разобраться в причинах тревоги клиента. Например, возможно, что тревога является следствием страха перед потерей контроля над ситуацией или боязни одиночества.
-
-Важно помнить, что цель терапии - помочь клиенту стать более осознанным и автономным в принятии решений, а не пытаться изменить клиента силой. Также важно сохранять нейтральную позицию, не принимая чью-либо сторону в конфликте, но помогая клиенту увидеть разные точки зрения.
-
-Также можно попробовать помочь клиенту развивать навыки принятия и проживания эмоций, а также техники релаксации для уменьшения уровня тревоги.
-
-
-
-Время ответа: 45.92 sec
------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-Модель: mistral-nemo:12b-instruct-2407-fp16
-
-Транскрипт встречи: test.txt 
-
-
-Промпт:
-
-You are a Gestalt therapy specialist. Please carefully study the attached text and present its detailed context broken down into each session.
-
-
-Ответ модели:
-
-Основываясь на предоставленном диалоге, можно сделать несколько выводов о терапевтическом процессе и взаимоотношениях клиента с близкими:
-
-1. **Тревожность**: Клиентка испытывает высокую степень тревоги в отношении своей дочери и мужа. Это проявляется в страхе за дочь, когда та не отвечает на звонки, и в беспокойстве из-за поездки мужа и дочери без нее.
-2. **Контроль**: Клиентка склонна к гиперконтролю в отношениях с членами семьи. Она ожидает, что муж отчитается ей за дочь, и чувствует себя исключенной из жизни своей семьи из-за их близости друг с другом.
-3. **Чувство неизвестности и отчуждения**: Когда близкие находятся вне контроля клиентки или ведут себя независимо от нее, она испытывает чувство неизвестности и отчуждения, как будто они что-то знают или делают без нее.
-4. **Решения и выбор**: Клиентка склонна к поиску единственного "правильного" решения для своих проблем, что затрудняет ей принятие решений. В этом сеансе она вновь возвращается к вопросу о разводе, хотя ранее решила пока не разводиться.
-5. **Работа терапевта**: Терапевт пытается помочь клиентке осознать свои тревоги и склонность к контролю, а также снизить градус беспокойства. Он также пытается вернуть клиентку к реальности, напоминая ей, что до сих пор не произошло ничего страшного из-за независимости мужа и дочери.
-
-Для дальнейшей работы с клиенткой терапевту может быть полезно:
-
-* Продолжать работать над осознанием и принятием тревог клиентки.
-* Помогать клиентке развивать здоровые способы справляться со страхами и беспокойством, а не пытаясь контролировать других.
-* Рассматривать и обсуждать различные варианты решений проблем, вместо поиска единственного "правильного" ответа.
-* Продолжать работать над отношениями клиентки с членами семьи, помогая ей развивать здоровые, основанные на уважении взаимоотношения.
-
-
-
-Время ответа: 44.78 sec
------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-Модель: mistral-nemo:12b-instruct-2407-fp16
-
-Транскрипт встречи: test.txt 
-
-
-Промпт:
-
-You are a Gestalt therapy specialist. Carefully analyze attached therapy session transcripts and provide the summary for the 7th and 8th sessions.
-
-
-Ответ модели:
-
-На основе данного диалога можно сделать несколько выводов о терапевтическом процессе:
-
-1. Терапевт проявляет сочувствие и эмпатию к клиентке, понимая ее переживания и беспокойство по поводу дочери и мужа.
-2. Терапевт помогает клиентке осознать свои гиперконтролирующие поведенческие паттерны tanto в отношении дочери, так и мужа.
-3. Клиентка испытывает трудности с принятием решений и склонна к поиску "единственно правильного" решения.
-4. Клиентка имеет тревожные переживания по поводу своей дочери и мужа, которые могут быть связаны с ее собственными незавершенными или неразрешенными проблемами или конфликтами в отношениях.
-5. Терапевт пытается помочь клиентке снизить уровень тревоги и переживаний, а также подчеркивает важность доверия к мужу и дочери.
-
-В целом, терапевтический процесс направлен на помощь клиентке в осознании своих паттернов поведения, эмоций и мышления, а также в развитии более здоровых и адаптивных способов взаимодействия с окружающими людьми.
-
-
-
-Время ответа: 25.26 sec
------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-Модель: mistral-nemo:12b-instruct-2407-fp16
-
-Транскрипт встречи: test.txt 
-
-
-Промпт:
-
-You are a specialist in taking notes on Gestalt therapy texts Carefully study the attached text and provide notes for sessions 8 and 9.
-
-Ответ модели:
-
-В данном случае у клиента имеются несколько проблемных аспектов в жизни:
-
-1. Отношения с дочерью: Клиент испытывает сильную тревогу и беспокойство за свою дочь, что проявляется в ее гиперконтролирующем поведении. Она ожидает от своей дочери определенного поведения и не принимает, когда дочь ведет себя по-другому или даже пытается самостоятельно решать свои проблемы.
-2. Отношения с мужем: Клиент испытывает чувство неизвестности и беспокойства в связи с тем, что у ее мужа и дочери хорошие отношения, которых она не понимает. Она боится, что они "натворят дел" без нее.
-3. Решение о разводе: Клиент сомневается в правильности своего решения оставаться в браке или нет.
-
-В данном случае терапевт может помочь клиенту следующим образом:
-
-1. Помочь клиенту осознать свою гиперконтролирующую позицию в отношении дочери и мужа, а также их право на самостоятельность и личную жизнь.
-2. Помочь клиенту справиться со своей тревогой и беспокойством, научить ее техниким релаксации и управления стрессом.
-3. Помочь клиенту проработать свой страх неизвестности и неопределенности в отношении мужа и дочери.
-4. Помочь клиенту проанализировать причины своего решения остаться в браке или развестись, осознать свои настоящие чувства и желания, а также возможные последствия каждого из этих решений.
-
-При работе с данным клиентом важно создать доверительную и безопасную обстановку, чтобы клиент мог открыто делиться своими переживаниями и сомнениями. Также терапевт должен следить за тем, чтобы не навязывать свою точку зрения или решение проблемы, а вместо этого работать над тем, чтобы помочь клиенту осознать свои собственные ресурсы и найти свой путь к решению проблемных ситуаций.
-
-
-
-Время ответа: 39.60 sec
------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-Модель: deepseek-r1:14b
-
-Транскрипт встречи: test.txt 
-
-
-Промпт:
-
-You are a specialist in taking notes on Gestalt therapy texts Carefully study the attached text and provide notes for sessions 8 and 9.
-
-Ответ модели:
-
-<think>
-Итак, я только начинаю изучать основы психологии и сталкиваюсь с материалом о семейных отношениях. В предоставленном тексте описывается ситуация между клиенткой, ее мужем и дочерью. Клиентка выражает тревогу за дочь и недовольство её поведением, в частности, за то, что дочь не ответила на звонки и не приехала домой как планировалось. Муж, напротив, разговаривал с дочерью спокойно и даже предложил ей поехать вместе на Камчатку, чего клиентка восприняла как slight.
-
-Мне интересно понять, какие психологические механизмы здесь в действие. Возможно, клиентка проходит через страх утраты или ревность к дочери со стороны мужа. Также стоит рассмотреть гиперопеку, о которой упоминается, и её влияние на отношения внутри семьи.
-
-Я также задумываюсь, как терапевт может помочь клиентке снизить тревогу и изменить свои подходы к воспитанию дочери. Возможно, стоит работать над установлением доверительных отношений между клиенткой и её дочерью, чтобы уменьшить гиперконтроль.
-
-Возможно, есть элементы кодепенденции или избегающего поведения у дочери, что вызывает тревогу у матери. Важно также проанализировать роль мужа в этих отношениях и его способность выступать балансировочной фигурой.
-
-Также интересно, насколько клиентка осознаёт свои чувства и как она интерпретирует поведение дочери и мужа. Может быть, стоит использовать техники的认知行为疗法 (CBT) для работы с её мышлениями о дочери и браке.
-
-В целом, мне нужно структурировать свои наблюдения и вопросы, чтобы лучше понять этот сложный семейный конфликт и предложить возможные стратегии для терапии.
-</think>
-
-### Анализ ситуации и рекомендации:
-
-1. **Понимание психологических механизмов:**
-   - **Страх утраты:** Клиентка, вероятно, испытывает тревогу из-за чувства отчуждения между ней и её дочерью. Это может быть связано с боязнью потери связи с дочерью.
-   - **Ревность:** Возможна ревность к мужу из-за его близости с дочерью, что вызывает у неё чувство不舒服.
-   - **Гиперопека:** Клиентка проявляет чрезмерную опеку над дочерью, что может подавлять её автономность и способствовать избегающему поведению.
-
-2. **Роль мужа:**
-   - Муж выступает балансировочной фигурой, сохраняя спокойствие и уважение к дочери. Это способствует здоровым отношениям между ним и дочерью.
-   - Его поведение может быть воспринято клиенткой как конкуренция или отторжение, что подпитывает её тревогу.
-
-3. **Рекомендации для терапии:**
-   - **Работа с мышлениями:** Использование CBT для анализа и коррекции негативных убеждений клиентки о дочери и муже.
-   - **Установление доверительных отношений:** Развитие коммуникации между матерью и дочерью, чтобы снизить гиперопеку.
-   - **Разработка стратегий управления тревогой:** Обучение клиентки техникам релаксации и принятия неизвестности.
-   - **Повышение осознанности:** Работа над пониманием своих чувств и их причин, чтобы снизить эмоциональное напряжение.
-
-4. **Роль терапевта:**
-   - Терапевту следует поддерживать клиентку, не упрощая её ситуации, а помогая осознать сложность чувств.
-   - Важно также учитывать и поддерживать мужа в его стремлении быть близким с дочерью, чтобы создать гармоничную семейную динамику.
-
-5. **Возможные последствия и предупреждения:**
-   - Несовременное вмешательство или игнорирование чувств может усугубить ситуацию.
-   - Важно также обратить внимание на самопознание клиентки и её готовность к изменениям.
-
-### Заключение:
-Работа с клиенткой требует терпения, эмпатии и использования различных подходов из психологии для построения healthier family dynamics. Основной акцент должен быть на понимании её чувств, изменении мышления и улучшении коммуникации внутри семьи.
-
-
-
-Время ответа: 25.40 sec
+Время ответа: 1038.44 sec
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 
 
