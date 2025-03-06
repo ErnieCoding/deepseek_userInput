@@ -4,7 +4,6 @@ import time
 from translate import translate_file
 
 def ask(filename, model):
-    start = time.time()
     # with open(filename, "r", encoding="utf-8", errors="replace") as file:
     #     text = file.read()
     
@@ -30,7 +29,7 @@ Recurring Patterns & Progress – Any themes, cognitive distortions, or behavior
 Future Considerations – Suggested focus areas for future therapy sessions."\n\n
 Ensure that each session's notes maintain clarity, accuracy, and consistency in structure. If there are notable changes across sessions, highlight them in the final summary.
     """
-
+    start = time.time()
     response = ollama.chat(
         model=model,
         messages=[
@@ -49,7 +48,7 @@ Ensure that each session's notes maintain clarity, accuracy, and consistency in 
 Модель: {model}\n
 Транскрипт встречи: {filename} \n
 Промпт:\n
-<текст>\n{task}\n
+<транскрипт>\n\n{task}\n
 Ответ модели:\n
 {response_text}\n\n
 
@@ -65,5 +64,5 @@ parser = argparse.ArgumentParser(description="User prompt")
 parser.add_argument("input", type=str, help="The string to be used as prompt")
 args = parser.parse_args()
 
-model = "mistral-nemo:12b-instruct-2407-fp16"
+model = "deepseek-r1:14b"
 response = ask(args.input, model)

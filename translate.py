@@ -1,6 +1,5 @@
 from deep_translator import DeeplTranslator
-import argparse
-#import asyncio
+#import argparse
 
 
 def translate_file(filename):
@@ -25,8 +24,9 @@ def translate_file(filename):
     #     file.write(full_translation)
     return full_translation
 
-parser = argparse.ArgumentParser(description="File name")
-parser.add_argument("filename", type=str, help="File to translate")
-args = parser.parse_args()
+# Processing input from the command line
+# parser = argparse.ArgumentParser(description="File name")
+# parser.add_argument("filename", type=str, help="File to translate")
+# args = parser.parse_args()
 
-translated = translate_file(args.filename)
+# translated = translate_file(args.filename)
