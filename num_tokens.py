@@ -10,6 +10,6 @@ def count_tokens(filepath, encoding_name="cl100k_base"):
     return len(tokens)
 
 
-filepath = "tests/Ролевые транскрипты/transcription 17.12.txt"
+filepath = "tests/НД транскрипты/Командос17-12.txt"
 
-print(f"File {filepath.split("/")[2]} has {count_tokens(filepath)} tokens")
+print(f"File {filepath.split("/")[1]} has {count_tokens(filepath)} tokens")
