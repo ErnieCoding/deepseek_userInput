@@ -2,24 +2,37 @@ import argparse
 import ollama
 import time
 from libreTranslateFile import translate_to_eng, translate_to_rus
+import re
 
 system_role = "You are a business assistant that creates structured meeting reports based on meeting transcripts. Extract key discussion points, decisions (with responsible parties and deadlines), and next steps. Ensure clarity, accuracy, and relevance."
 
-chunk_summary_prompt = """Summarize the following part of a meeting transcript. Extract key points, decisions made, and any assigned tasks with responsible people and deadlines. Keep the summary concise but informative."""
+chunk_summary_prompt = "Summarize the following part of a meeting transcript. Extract key points, decisions made, and any assigned tasks with responsible people and deadlines."
 
-final_report_prompt = """Внимательно изучи транскрипт записи встречи. Выяви участников встречи, основные тезисы встречи, запиши протокол встречи на основе представленного транскрипта по следующему формату:
+rus_final_prompt = """Внимательно изучи транскрипт записи встречи. Выяви участников встречи, основные тезисы встречи, запиши протокол встречи на основе представленного транскрипта по следующему формату:
 1. 10 ключевых тезисов встречи
 2. Принятые решения, ответственные за их исполнения, сроки
 3. Ближайшие шаги. Отметь наиболее срочные задачи Подробно опиши поставленные задачи каждому сотруднику, укажи сроки исполнения задач.
 """
+translated_prompt = translate_to_eng(rus_final_prompt)
 
-def chunk_text(text, max_length=2048):
-    """Splits text into smaller chunks to fit within model constraints."""
-    words = text.split()
+def chunk_text(text, max_length=8000):
+    sentences = re.split(r'(?<=[.!?])\s+', text)
     chunks = []
+    current_chunk = []
+    current_length = 0
     
-    for i in range(0, len(words), max_length):
-        chunks.append(" ".join(words[i:i + max_length]))
+    for sentence in sentences:
+        sentence_length = len(sentence)
+        if current_length + sentence_length <= max_length:
+            current_chunk.append(sentence)
+            current_length += sentence_length
+        else:
+            chunks.append(" ".join(current_chunk))
+            current_chunk = [sentence]
+            current_length = sentence_length
+    
+    if current_chunk:
+        chunks.append(" ".join(current_chunk))
     
     return chunks
 
@@ -31,7 +44,7 @@ def get_model_response(prompt, transcript, model):
             {'role': 'user', 'content': f"{prompt}\n{transcript}"}
         ],
         stream=False,
-        options={'temperature': 0.3, 'num_ctx': 131072},
+        options={'temperature': 0.3, 'num_ctx': 8192},
     )
     return response.get('message', {}).get('content', "Ошибка: ответ модели отсутствует.")
 
@@ -41,15 +54,18 @@ def ru_response(args, model):
     
     transcript = translate_to_eng(transcript)
     chunks = chunk_text(transcript)
-    
     summarized_chunks = []
     
     for chunk in chunks:
         summary = get_model_response(chunk_summary_prompt, chunk, model)
         summarized_chunks.append(summary)
     
-    final_summary = get_model_response(translate_to_eng(final_report_prompt), "\n".join(summarized_chunks), model)
-    translated_response = translate_to_rus(final_summary)
+    full_summary = " ".join(summarized_chunks)
+    
+    final_prompt = f"""{translated_prompt}"""
+    
+    final_response = get_model_response(final_prompt, full_summary, model)
+    translated_response = translate_to_rus(final_response)
     
     # Save test results into a txt file
     test_dir = "tests/"
@@ -59,7 +75,8 @@ def ru_response(args, model):
         "qwen2.5:14b": "qwen_test/",
         "qwen2.5:14b-instruct-fp16": "qwen_test/",
         "mistral-nemo:12b": "mistral_test/",
-        "mistral-nemo:12b-instruct-2407-fp16": "mistral_test/"
+        "mistral-nemo:12b-instruct-2407-fp16": "mistral_test/",
+        "gemma3:27b":"gemma_test/",
     }.get(model, "deepseek_test/")
     
     test_dir += model_prefix
@@ -73,8 +90,6 @@ def ru_response(args, model):
 Модель: {model}\n
 Транскрипт встречи: {args.filename.split('/')[-1]} \n
 Роль: {system_role}\n
-Суммаризованные части:\n
-{chr(10).join(summarized_chunks)}\n
 
 Финальный отчет:\n
 {translated_response}\n
@@ -95,6 +110,7 @@ if __name__ == "__main__":
     parser.add_argument("--mistral_instruct", action="store_true", help="output a mistral-instruct model response")
     parser.add_argument("--deepseek", action="store_true", help="output a deepseek 14b response")
     parser.add_argument("--deepseek_distill", action="store_true", help="output a deepseek qwen distill response")
+    parser.add_argument("--gemma", action="store_true", help="output a gemma3 model response")
     
     args = parser.parse_args()
 
@@ -114,5 +130,7 @@ if __name__ == "__main__":
         model = "deepseek-r1:14b"
     elif args.deepseek_distill:
         model = "deepseek-r1:14b-qwen-distill-fp16"
+    elif args.gemma:
+        model = "gemma3:27b"
     
     ru_response(args, model)
