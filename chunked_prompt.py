@@ -4,18 +4,20 @@ import time
 from libreTranslateFile import translate_to_eng, translate_to_rus
 import re
 
-system_role = "You are a business assistant that creates structured meeting reports based on meeting transcripts. Extract key discussion points, decisions (with responsible parties and deadlines), and next steps. Ensure clarity, accuracy, and relevance."
+system_role = "You are a business assistant that creates structured meeting reports based on meeting transcripts. Extract key discussion points, decisions with responsible parties and deadlines, and next steps. Ensure clarity, accuracy, and relevance."
 
 chunk_summary_prompt = "Summarize the following part of a meeting transcript. Extract key points, decisions made, and any assigned tasks with responsible people and deadlines."
 
+translated_chunk_prompt = translate_to_rus(chunk_summary_prompt)
+
 rus_final_prompt = """Внимательно изучи транскрипт записи встречи. Выяви участников встречи, основные тезисы встречи, запиши протокол встречи на основе представленного транскрипта по следующему формату:
 1. 10 ключевых тезисов встречи
-2. Принятые решения, ответственные за их исполнения, сроки
-3. Ближайшие шаги. Отметь наиболее срочные задачи Подробно опиши поставленные задачи каждому сотруднику, укажи сроки исполнения задач.
+2. Принятые решения, ответственные за их исполнения и сроки выполнения для каждого сотрудника
+3. Ближайшие шаги. Отметь наиболее срочные задачи, подробно опиши поставленные задачи каждому сотруднику, укажи сроки исполнения задач.
 """
-translated_prompt = translate_to_eng(rus_final_prompt)
+translated_final_prompt = translate_to_eng(rus_final_prompt)
 
-def chunk_text(text, max_length=8000):
+def chunk_text(text, max_length=3072):
     sentences = re.split(r'(?<=[.!?])\s+', text)
     chunks = []
     current_chunk = []
@@ -44,7 +46,7 @@ def get_model_response(prompt, transcript, model):
             {'role': 'user', 'content': f"{prompt}\n{transcript}"}
         ],
         stream=False,
-        options={'temperature': 0.3, 'num_ctx': 8192},
+        options={'temperature': 0.1, 'num_ctx': 131072},
     )
     return response.get('message', {}).get('content', "Ошибка: ответ модели отсутствует.")
 
@@ -57,12 +59,15 @@ def ru_response(args, model):
     summarized_chunks = []
     
     for chunk in chunks:
-        summary = get_model_response(chunk_summary_prompt, chunk, model)
+        summary = get_model_response(translated_chunk_prompt, chunk, model)
         summarized_chunks.append(summary)
+
+    # for summary in summarized_chunks:
+    #     print(summary + "\n\n")
     
     full_summary = " ".join(summarized_chunks)
     
-    final_prompt = f"""{translated_prompt}"""
+    final_prompt = f"{translated_final_prompt}"
     
     final_response = get_model_response(final_prompt, full_summary, model)
     translated_response = translate_to_rus(final_response)
@@ -95,7 +100,7 @@ def ru_response(args, model):
 {translated_response}\n
 -----------------------------------------------------------------------------------------------------------------------------------------------------\n
 """)
-    return final_summary, translated_response
+    return translated_response
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="User prompt")
