@@ -1,3 +1,4 @@
+#TODO: try passing tools into the chat using the example from https://github.com/ollama/ollama-python/blob/main/examples/tools.py
 import argparse
 import ollama
 import time
