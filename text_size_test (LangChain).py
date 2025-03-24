@@ -1,6 +1,7 @@
 import pypdf
 from langchain_ollama import ChatOllama
 from tokenCounter import count_tokens
+import re
 
 def extract(filepath, num_tokens):
     """
