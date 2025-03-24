@@ -4,8 +4,9 @@ from tokenCounter import count_tokens
 import re
 from modelinfo import get_context_length
 import argparse
+import chardet
 
-def extract(filepath, num_tokens, prompt):
+def extract(filepath:str, num_tokens:int, prompt:str) -> str:
     """
     Extract part of a pdf text based on the number of tokens being tested
     """
@@ -15,8 +16,18 @@ def extract(filepath, num_tokens, prompt):
 
     prompt_length = count_tokens(text=prompt)
     extracted_text = ""
+
+    if num_tokens <= prompt_length:
+        raise ValueError("Number of tokens must be greater than the prompt length.")
+
     for page in pages:
         curr_text = page.extract_text()
+
+        if curr_text is None: 
+            continue
+
+        curr_text = curr_text.encode('utf-8', 'replace').decode('utf-8')
+
         sentences = re.split(r'(?<=[.!?])\s+', curr_text)
         for sentence in sentences:
             sentence_len = count_tokens(text=sentence)
@@ -31,19 +42,21 @@ def get_summary(text:str, prompt:str, model:str) -> str:
     """
     Prompt the model based on the provided chunk of a text.
     """
+    try:
+        model_response = ollama.chat(
+            model=model,
+            messages=[
+                {'role':'user', 'content':f'{prompt}\n{text}'}
+            ],
+            stream=False,
+            options={'temperature':0, 'num_ctx': get_context_length(model)}
+        )
+        
+        return model_response.get('message', {}).get('content', "Error: no response from the model.")
+    except Exception as e:
+        return f"Error: {str(e)}"
 
-    model_response = ollama.chat(
-        model=model,
-        messages=[
-            {'role':'user', 'content':f'{prompt}\n{text}'}
-        ],
-        stream=False,
-        options={'temperature':0, 'num_ctx': get_context_length(model)}
-    )
-    
-    return model_response.get('message', {}).get('content', "Error: no response from the model.")
-
-def record_test(text, prompt, model, response):
+def record_test(text:str, prompt:str, model:str, response:str) -> None:
     """
     Records test in a txt file with text, prompt, model, and model's response
     """
@@ -58,22 +71,23 @@ def record_test(text, prompt, model, response):
         "mistral-nemo:12b": "mistral",
         "mistral-nemo:12b-instruct-2407-fp16": "mistral",
         "gemma3:27b":"gemma",
-        "phi4":"phi4",
+        "phi4:14b":"phi4",
         "deepseek-r1:14b":"deepseek",
         "deepseek-r1:14b-qwen-distill-fp16":"deepseek",
-    }.get(model)
+    }.get(model, "unknown")
 
     test_dir += model_prefix
     is_instruct = "instruct" in model
     model_type = "instruct" if is_instruct else "base"
-    result_file = f"{test_dir}_{model_type}_modelresponse.txt"
+    text_size = count_tokens(text=text) + count_tokens(text=prompt)
+    result_file = f"{test_dir}_{model_type}_{text_size}_modelresponse.txt"
 
-    with open(result_file, "w", encoding="utf-8") as file:
-        file.write(f"""Model: {model}
-Prompt: {prompt}
-Text size (tokens): {count_tokens(text)}
+    with open(result_file, "w", encoding="utf-8", errors="replace") as file:
+        file.write(f"""Model: {model}\n\n
+Prompt: {prompt}\n
+Text size (with prompt): {text_size}\n
+Model Response: {response}\n\n
 Text: \n{text}\n\n
-Model Response: {response}
 """)
 
 # Parsing args and recording tests
@@ -107,7 +121,7 @@ Map out with full detail:
         if model_name == "nomic-embed-text:latest":
             continue
         
-        extracted_text = extract(args.filepath, args.num_tokens)
+        extracted_text = extract(args.filepath, args.num_tokens, prompt)
 
         summary = get_summary(extracted_text, prompt, model_name)
 
