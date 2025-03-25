@@ -6,6 +6,7 @@ import re
 from modelinfo import get_context_length
 import argparse
 
+#TODO: check the actual chunk sizes (for some reason, only 3 pages were extracted for 8k tokens)
 def extract(filepath:str, num_tokens:int, prompt:str) -> str:
     """
     Extract part of a pdf text based on the number of tokens being tested
@@ -47,6 +48,7 @@ def extract(filepath:str, num_tokens:int, prompt:str) -> str:
     except Exception as e:
         print(f"Unexpected error: {e}")
 
+#TODO: handle NoneType model response and fix
 def get_summary(text:str, prompt:str, model:str) -> str:
     """
     Prompt the model based on the provided chunk of a text.
@@ -65,6 +67,7 @@ def get_summary(text:str, prompt:str, model:str) -> str:
     except Exception as e:
         return f"Error: {str(e)}"
 
+#TODO: Find a way to automate test recoding into docx (maybe LaTeX?)
 def record_test(text:str, prompt:str, model:str, response:str) -> None:
     """
     Records test in a txt file with text, prompt, model, and model's response
