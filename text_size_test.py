@@ -11,6 +11,7 @@ def extract(filepath:str, num_tokens:int, prompt:str) -> str:
     """
     Extract part of a pdf text based on the number of tokens being tested
     """
+
     try:
         reader = pypdf.PdfReader(filepath)
         pages = reader.pages
@@ -53,6 +54,7 @@ def get_summary(text:str, prompt:str, model:str) -> str:
     """
     Prompt the model based on the provided chunk of a text.
     """
+    
     try:
         model_response = ollama.chat(
             model=model,
