@@ -38,7 +38,7 @@ def query_deepseek(filename, api_key):
         return f"Error: {response.status_code}, {response.text}"
 
 if __name__ == "__main__":
-    api_key = "sk-35982cadcb7e46389fbd548f6a211ccf"  # Replace with your API key
+    api_key = "<API KEY>"  # Replace with your API key
     user_prompt = input("Enter the filepath: ")
     response = query_deepseek(user_prompt, api_key)
     print("DeepSeek-R1 Response:", response)
