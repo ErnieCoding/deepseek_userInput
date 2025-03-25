@@ -129,6 +129,8 @@ Map out with full detail:
 
         if model_name == "nomic-embed-text:latest":
             continue
+
+        print(f"Processing model with {args.num_tokens} tokens: {model_name}")
         
         extracted_text = extract(args.filepath, args.num_tokens, prompt)
 

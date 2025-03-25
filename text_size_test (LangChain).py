@@ -29,6 +29,3 @@ def get_summary(text, prompt, model):
     """
 
     pass
-
-
-
