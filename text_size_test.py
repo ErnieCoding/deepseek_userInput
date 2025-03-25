@@ -1,42 +1,51 @@
 import pypdf
 import ollama
+import pypdf.errors
 from tokenCounter import count_tokens
 import re
 from modelinfo import get_context_length
 import argparse
-import chardet
 
 def extract(filepath:str, num_tokens:int, prompt:str) -> str:
     """
     Extract part of a pdf text based on the number of tokens being tested
     """
-    
-    reader = pypdf.PdfReader(filepath)
-    pages = reader.pages
+    try:
+        reader = pypdf.PdfReader(filepath)
+        pages = reader.pages
 
-    prompt_length = count_tokens(text=prompt)
-    extracted_text = ""
+        prompt_length = count_tokens(text=prompt)
+        extracted_text = ""
 
-    if num_tokens <= prompt_length:
-        raise ValueError("Number of tokens must be greater than the prompt length.")
+        if num_tokens <= prompt_length:
+            raise ValueError("Number of tokens must be greater than the prompt length.")
 
-    for page in pages:
-        curr_text = page.extract_text()
+        for page in pages:
+            curr_text = page.extract_text()
 
-        if curr_text is None: 
-            continue
+            if not curr_text:
+                print("No text found on this page.") 
+                continue
 
-        curr_text = curr_text.encode('utf-8', 'replace').decode('utf-8')
+            curr_text = curr_text.encode('utf-8', 'replace').decode('utf-8')
 
-        sentences = re.split(r'(?<=[.!?])\s+', curr_text)
-        for sentence in sentences:
-            sentence_len = count_tokens(text=sentence)
-            if (prompt_length + count_tokens(text=extracted_text)) + sentence_len <= num_tokens:
-                extracted_text += sentence
-            else:
-                return extracted_text.strip()
-    
-    return extracted_text.strip()
+            sentences = re.split(r'(?<=[.!?])\s+', curr_text)
+            for sentence in sentences:
+                sentence_len = count_tokens(text=sentence)
+                if (prompt_length + count_tokens(text=extracted_text)) + sentence_len <= num_tokens:
+                    extracted_text += sentence
+                else:
+                    return extracted_text.strip()
+    except FileNotFoundError:
+        print("Error: PDF file not found.")
+        return ""
+    except pypdf.errors.PdfReadError as e:
+        print(f"Error while reading file: {e}")
+        return ""
+    except ValueError as e:
+        print(f"ValueError: {e}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
 
 def get_summary(text:str, prompt:str, model:str) -> str:
     """
