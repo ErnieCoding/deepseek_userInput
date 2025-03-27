@@ -1,10 +1,11 @@
 from pypdf import PdfReader
-import ollama
-import pypdf.errors
+from docx import Document
 from tokenCounter import count_tokens
-import re
 from modelinfo import get_context_length
+import re
+import ollama
 import argparse
+import pypdf.errors
 import pytest
 
 def extract(filepath:str) -> str:
@@ -101,10 +102,12 @@ def get_summary(text:str, prompt:str, model:str) -> str:
         return f"Error: {str(e)}"
 
 #TODO: Find a way to automate test recoding into docx (maybe LaTeX?)
-def record_test(text:str, prompt:str, model:str, response:str) -> None:
+#TODO: Figure out a way to parse chunk texts and model's responses as well
+def record_test(text:str, prompt:str, chunk_prompt:str, model:str, response:str) -> None:
     """
     Records test in a txt file with text, prompt, model, and model's response
     """
+
     test_dir = "tests/text_size_test/"
 
     model_prefix = {
@@ -123,15 +126,38 @@ def record_test(text:str, prompt:str, model:str, response:str) -> None:
     test_dir += model_prefix
     is_instruct = "instruct" in model
     model_type = "instruct" if is_instruct else "base"
-    result_file = f"{test_dir}{model_type}_modelresponse.txt"
+    result_file = f"{test_dir}{model_type}_modelresponse.docx"
 
-    with open(result_file, "w", encoding="utf-8", errors="replace") as file:
-        file.write(f"""Model: {model}\n\n
-Prompt: {prompt}\n
-Text size (with prompt): {count_tokens(text=text) + count_tokens(text=prompt)}\n
-Model Response: {response}\n\n
-Text: \n{text}\n\n
-""")
+    # SAVING TO DOCX
+    document = Document()
+    
+    document.add_heading(f"{model} Test", 0)
+
+    document.add_heading(f"Параметры модели:\n", level=3)
+    document.add_paragraph("Температура: 0", style='List Bullet')
+    document.add_paragraph(f"num_ctx: {get_context_length(model)}\n", style='List Bullet')
+    
+    document.add_heading("Подход\n", level=2)
+    document.add_paragraph("<Описание подхода с параметрами для разбития текста (ко-во токнов, оверлап и тд)>")
+    document.add_paragraph(f"Общий размер финального текста вместе с промптом: {count_tokens(text=text) + count_tokens(text=prompt)}")
+
+    document.add_heading("Промпты\n", level=2)
+    document.add_paragraph(f"Общий промпт:\n", style="List Bullet")
+    document.add_paragraph(f"{prompt}\n")
+    document.add_paragraph(f"Промпт для чанков: \n", style="List Bullet")
+    document.add_paragraph(f"{chunk_prompt}\n")
+
+    document.add_heading("Финальный Ответ Модели\n", level=2)
+    document.add_paragraph(f"Ответ модели: \n\n")
+    document.add_paragraph(f"{response}\n\n")
+    document.add_paragraph(f"Финальный текст:\n\n ")
+    document.add_paragraph(f"{text}\n")
+    
+
+    document.add_page_break()
+
+    document.add_heading("Сравнение с Claude", level=0)
+    document.save(result_file)
 
 
 # Parsing args and recording tests
@@ -174,27 +200,43 @@ Map out with full detail:
     parser.add_argument("filepath", type=str, help="Filepath to pdf")
     args = parser.parse_args()
 
-    response: ollama.ListResponse = ollama.list()
-    for model in response.models:
-        model_name = model.model
+    model_name = "phi4:14b"
 
-        if model_name == "nomic-embed-text:latest":
-            continue
+    print(f"Processing model with {args.num_tokens} tokens: {model_name}\n\n")
 
-        print(f"Processing model with {args.num_tokens} tokens: {model_name}\n")
+    extracted_text = extract(args.filepath)
+    chunks = chunk_text(extracted_text, args.num_tokens)
+
+    chunk_summaries = []
+    for chunk in chunks:
+        summary = get_summary(chunk, chunk_prompt, model_name)
+        chunk_summaries.append(summary)
+
+    final_summary = get_summary(" ".join(chunk_summaries), final_prompt, model_name)
+
+    record_test(" ".join(chunk_summaries), final_prompt, chunk_prompt, model_name, final_summary)
+
+    # response: ollama.ListResponse = ollama.list()
+    # for model in response.models:
+    #     model_name = model.model
+
+    #     if model_name == "nomic-embed-text:latest":
+    #         continue
+
+    #     print(f"Processing model with {args.num_tokens} tokens: {model_name}\n")
         
-        extracted_text = extract(args.filepath)
+    #     extracted_text = extract(args.filepath)
 
-        chunks = chunk_text(extracted_text, args.num_tokens)
+    #     chunks = chunk_text(extracted_text, args.num_tokens)
 
-        chunk_summaries = []
-        for chunk in chunks:
-            summary = get_summary(chunk, chunk_prompt, model_name)
-            chunk_summaries.append(summary)
+    #     chunk_summaries = []
+    #     for chunk in chunks:
+    #         summary = get_summary(chunk, chunk_prompt, model_name)
+    #         chunk_summaries.append(summary)
         
-        final_summary = get_summary(" ".join(chunk_summaries), final_prompt, model_name)
+    #     final_summary = get_summary(" ".join(chunk_summaries), final_prompt, model_name)
 
-        record_test(" ".join(chunk_summaries), final_prompt, model_name, final_summary)
+    #     record_test(" ".join(chunk_summaries), final_prompt, model_name, final_summary)
 
 
 
