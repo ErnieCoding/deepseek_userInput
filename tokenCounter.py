@@ -33,4 +33,4 @@ def count_tokens(filepath = None, text = None, encoding_name="cl100k_base"):
     return len(tokens)
 
 if __name__ == "__main__":
-    print(count_tokens("tests/text_size_test/Rye.pdf"))
+    print(count_tokens("tests/text_size_test/extract_test.txt"))

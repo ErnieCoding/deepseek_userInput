@@ -1,0 +1,29 @@
+Model: deepseek-r1:14b-qwen-distill-fp16
+
+
+Prompt: Conduct a holistic, precision-driven analysis of the following summaries. Your goal is to maintain 100% information integrity while preserving exact contextual nuances.
+
+Deliver:
+
+1. An exhaustive factual summary capturing all key events and details without distortion or omission.
+2. A thematic analysis exploring core ideas and recurring motifs.
+3. A deep symbolic/metaphorical interpretation supported by textual evidence.
+4. Extraction of five pivotal narrative components with justification.
+
+Map out with full detail:
+
+1. All character interactions and relationships.
+2. The complete plot progression with no missing elements.
+3. Narrative techniques, including structural choices, perspective, and literary devices.
+4. A linguistic breakdown covering syntax, diction, tone, narrative voice, and literary techniques.
+
+
+Text size (with prompt): 384
+
+Model Response: Error: expected string or bytes-like object, got 'NoneType'
+
+
+Text: 
+Error: expected string or bytes-like object, got 'NoneType' Error: expected string or bytes-like object, got 'NoneType' Error: expected string or bytes-like object, got 'NoneType' Error: expected string or bytes-like object, got 'NoneType' Error: expected string or bytes-like object, got 'NoneType' Error: expected string or bytes-like object, got 'NoneType' Error: expected string or bytes-like object, got 'NoneType' Error: expected string or bytes-like object, got 'NoneType' Error: expected string or bytes-like object, got 'NoneType' Error: expected string or bytes-like object, got 'NoneType' Error: expected string or bytes-like object, got 'NoneType' Error: expected string or bytes-like object, got 'NoneType' Error: expected string or bytes-like object, got 'NoneType' Error: expected string or bytes-like object, got 'NoneType' Error: expected string or bytes-like object, got 'NoneType' Error: expected string or bytes-like object, got 'NoneType' Error: expected string or bytes-like object, got 'NoneType'
+
+

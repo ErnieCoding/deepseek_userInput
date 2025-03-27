@@ -1,43 +1,38 @@
-import pypdf
+from pypdf import PdfReader
 import ollama
 import pypdf.errors
 from tokenCounter import count_tokens
 import re
 from modelinfo import get_context_length
 import argparse
+import pytest
 
-#TODO: check the actual chunk sizes (for some reason, only 3 pages were extracted for 8k tokens)
-def extract(filepath:str, num_tokens:int, prompt:str) -> str:
+def extract(filepath:str) -> str:
     """
-    Extract part of a pdf text based on the number of tokens being tested
+    Extract entire pdf text
     """
-
     try:
-        reader = pypdf.PdfReader(filepath)
+        reader = PdfReader(filepath)
         pages = reader.pages
 
-        prompt_length = count_tokens(text=prompt)
         extracted_text = ""
-
-        if num_tokens <= prompt_length:
-            raise ValueError("Number of tokens must be greater than the prompt length.")
-
-        for page in pages:
-            curr_text = page.extract_text()
+        
+        num_pages = 0 # testing number of pages processed
+        for i in range(len(pages)):
+            curr_text = pages[i].extract_text()
 
             if not curr_text:
                 print("No text found on this page.") 
                 continue
-
+            
+            print(f"PROCESSING PAGE {i+1}\n\n")
+            num_pages += 1
             curr_text = curr_text.encode('utf-8', 'replace').decode('utf-8')
 
-            sentences = re.split(r'(?<=[.!?])\s+', curr_text)
-            for sentence in sentences:
-                sentence_len = count_tokens(text=sentence)
-                if (prompt_length + count_tokens(text=extracted_text)) + sentence_len <= num_tokens:
-                    extracted_text += sentence
-                else:
-                    return extracted_text.strip()
+            extracted_text += f"PAGE {i+1}\n\n" if i + 1 == 1 else f"\n\nPAGE {i+1}\n\n"
+            extracted_text += curr_text
+
+        return extracted_text
     except FileNotFoundError:
         print("Error: PDF file not found.")
         return ""
@@ -49,12 +44,48 @@ def extract(filepath:str, num_tokens:int, prompt:str) -> str:
     except Exception as e:
         print(f"Unexpected error: {e}")
 
+def chunk_text(text:str, num_tokens:int, overlap: float = 0.3) -> list[str]:
+    """
+    Splits provided text by the number of tokens with overlapping regions.
+    """
+    sentences = re.split(r'(?<=[.!?])\s+', text)
+
+    chunks = []
+    curr_chunk = []
+    curr_length = 0
+
+    for sentence in sentences:
+        sentence_length = count_tokens(text=sentence)
+
+        if sentence_length + curr_length <= num_tokens:
+            curr_chunk.append(sentence)
+            curr_length += sentence_length
+        else:
+            chunks.append(" ".join(curr_chunk))
+
+            overlap_size = int(overlap * num_tokens)
+
+            retained_tokens = []
+            retained_length = 0
+            while curr_chunk and retained_length < overlap_size:
+                retained_sentence = curr_chunk.pop()
+                retained_tokens.insert(0, retained_sentence)
+                retained_length += count_tokens(text=retained_sentence)
+
+            curr_chunk = retained_tokens + [sentence]
+            curr_length = retained_length + sentence_length
+
+    if curr_chunk:
+        chunks.append(" ".join(curr_chunk))
+
+    return chunks
+
 #TODO: handle NoneType model response and fix
+#TODO: fix memory usage issue (VRAM) - mistral
 def get_summary(text:str, prompt:str, model:str) -> str:
     """
     Prompt the model based on the provided chunk of a text.
     """
-    
     try:
         model_response = ollama.chat(
             model=model,
@@ -74,45 +105,60 @@ def record_test(text:str, prompt:str, model:str, response:str) -> None:
     """
     Records test in a txt file with text, prompt, model, and model's response
     """
-
     test_dir = "tests/text_size_test/"
 
     model_prefix = {
-        "llama3.1:8b": "llama",
-        "llama3.1:8b-instruct-fp16": "llama",
-        "qwen2.5:14b": "qwen",
-        "qwen2.5:14b-instruct-fp16": "qwen",
-        "mistral-nemo:12b": "mistral",
-        "mistral-nemo:12b-instruct-2407-fp16": "mistral",
-        "gemma3:27b":"gemma",
-        "phi4:14b":"phi4",
-        "deepseek-r1:14b":"deepseek",
-        "deepseek-r1:14b-qwen-distill-fp16":"deepseek",
-    }.get(model, "unknown")
+        "llama3.1:8b": "llama/",
+        "llama3.1:8b-instruct-fp16": "llama/",
+        "qwen2.5:14b": "qwen/",
+        "qwen2.5:14b-instruct-fp16": "qwen/",
+        "mistral-nemo:12b": "mistral/",
+        "mistral-nemo:12b-instruct-2407-fp16": "mistral/",
+        "gemma3:27b":"gemma/",
+        "phi4:14b":"phi4/",
+        "deepseek-r1:14b":"deepseek/",
+        "deepseek-r1:14b-qwen-distill-fp16":"deepseek/",
+    }.get(model, "unknown/")
 
     test_dir += model_prefix
     is_instruct = "instruct" in model
     model_type = "instruct" if is_instruct else "base"
-    text_size = count_tokens(text=text) + count_tokens(text=prompt)
-    result_file = f"{test_dir}_{model_type}_{text_size}_modelresponse.txt"
+    result_file = f"{test_dir}{model_type}_modelresponse.txt"
 
     with open(result_file, "w", encoding="utf-8", errors="replace") as file:
         file.write(f"""Model: {model}\n\n
 Prompt: {prompt}\n
-Text size (with prompt): {text_size}\n
+Text size (with prompt): {count_tokens(text=text) + count_tokens(text=prompt)}\n
 Model Response: {response}\n\n
 Text: \n{text}\n\n
 """)
 
+
 # Parsing args and recording tests
 if __name__ == "__main__":
-    prompt = """Conduct a holistic, precision-driven text comprehension analysis. Your goal is to maintain 100% information integrity while preserving exact contextual nuances.
+    chunk_prompt = """Conduct a holistic, precision-driven text comprehension analysis. Your goal is to maintain 100% information integrity while preserving exact contextual nuances.
 
 Deliver:
 
 1. An exhaustive factual summary capturing all key events and details without distortion or omission.
 2. A thematic analysis exploring core ideas and recurring motifs.
 3.A deep symbolic/metaphorical interpretation supported by textual evidence.
+4. Extraction of five pivotal narrative components with justification.
+
+Map out with full detail:
+
+1. All character interactions and relationships.
+2. The complete plot progression with no missing elements.
+3. Narrative techniques, including structural choices, perspective, and literary devices.
+4. A linguistic breakdown covering syntax, diction, tone, narrative voice, and literary techniques.
+"""
+    final_prompt = """Conduct a holistic, precision-driven analysis of the following summaries. Your goal is to maintain 100% information integrity while preserving exact contextual nuances.
+
+Deliver:
+
+1. An exhaustive factual summary capturing all key events and details without distortion or omission.
+2. A thematic analysis exploring core ideas and recurring motifs.
+3. A deep symbolic/metaphorical interpretation supported by textual evidence.
 4. Extraction of five pivotal narrative components with justification.
 
 Map out with full detail:
@@ -135,10 +181,52 @@ Map out with full detail:
         if model_name == "nomic-embed-text:latest":
             continue
 
-        print(f"Processing model with {args.num_tokens} tokens: {model_name}")
+        print(f"Processing model with {args.num_tokens} tokens: {model_name}\n")
         
-        extracted_text = extract(args.filepath, args.num_tokens, prompt)
+        extracted_text = extract(args.filepath)
 
-        summary = get_summary(extracted_text, prompt, model_name)
+        chunks = chunk_text(extracted_text, args.num_tokens)
 
-        record_test(extracted_text, prompt, model_name, summary)
+        chunk_summaries = []
+        for chunk in chunks:
+            summary = get_summary(chunk, chunk_prompt, model_name)
+            chunk_summaries.append(summary)
+        
+        final_summary = get_summary(" ".join(chunk_summaries), final_prompt, model_name)
+
+        record_test(" ".join(chunk_summaries), final_prompt, model_name, final_summary)
+
+
+
+
+
+
+
+
+# def test_extract():
+#     #TESTING extract()
+#     prompt = """Conduct a holistic, precision-driven text comprehension analysis. Your goal is to maintain 100% information integrity while preserving exact contextual nuances.
+
+# Deliver:
+
+# 1. An exhaustive factual summary capturing all key events and details without distortion or omission.
+# 2. A thematic analysis exploring core ideas and recurring motifs.
+# 3.A deep symbolic/metaphorical interpretation supported by textual evidence.
+# 4. Extraction of five pivotal narrative components with justification.
+
+# Map out with full detail:
+
+# 1. All character interactions and relationships.
+# 2. The complete plot progression with no missing elements.
+# 3. Narrative techniques, including structural choices, perspective, and literary devices.
+# 4. A linguistic breakdown covering syntax, diction, tone, narrative voice, and literary techniques.
+# """
+#     filepath = "tests/text_size_test/Rye.pdf"
+#     num_tokens = 8192
+#     extracted_text, num_pages = extract(filepath, num_tokens, prompt)
+
+#     with open("tests/text_size_test/extract_test.txt", 'w', encoding="utf-8") as file:
+#         file.write(extracted_text)
+    
+#     assert num_pages >= 10, f"Expected at least 10 pages, but got {num_pages}"
+#     assert len(extracted_text) > 0, "Extracted text should not be empty"
