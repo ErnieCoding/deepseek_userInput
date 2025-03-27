@@ -30,7 +30,7 @@ def extract(filepath:str) -> str:
             num_pages += 1
             curr_text = curr_text.encode('utf-8', 'replace').decode('utf-8')
 
-            extracted_text += f"PAGE {i+1}\n\n" if i + 1 == 1 else f"\n\nPAGE {i+1}\n\n"
+            extracted_text += f"PAGE {i+1}\n" if i + 1 == 1 else f"\nPAGE {i+1}\n"
             extracted_text += curr_text
 
         return extracted_text
@@ -97,13 +97,12 @@ def get_summary(text:str, prompt:str, model:str) -> str:
             options={'temperature':0, 'num_ctx': get_context_length(model)}
         )
         
-        return model_response.get('message', {}).get('content', "Error: no response from the model.")
+        return model_response.get('message', {}).get('content', "Error: no response from the model.") + "\n"
     except Exception as e:
         return f"Error: {str(e)}"
 
-#TODO: Find a way to automate test recoding into docx (maybe LaTeX?)
 #TODO: Figure out a way to parse chunk texts and model's responses as well
-def record_test(text:str, prompt:str, chunk_prompt:str, model:str, response:str) -> None:
+def record_test(text:str, chunk_summaries:dict, prompt:str, chunk_prompt:str, model:str, response:str) -> None:
     """
     Records test in a txt file with text, prompt, model, and model's response
     """
@@ -133,12 +132,12 @@ def record_test(text:str, prompt:str, chunk_prompt:str, model:str, response:str)
     
     document.add_heading(f"{model} Test", 0)
 
-    document.add_heading(f"Параметры модели:\n", level=3)
+    document.add_heading(f"Параметры модели:\n", level=2)
     document.add_paragraph("Температура: 0", style='List Bullet')
     document.add_paragraph(f"num_ctx: {get_context_length(model)}\n", style='List Bullet')
     
     document.add_heading("Подход\n", level=2)
-    document.add_paragraph("<Описание подхода с параметрами для разбития текста (ко-во токнов, оверлап и тд)>")
+    document.add_paragraph("<Описание подхода с параметрами для разбития текста (кол-во токенов, оверлап и тд)>")
     document.add_paragraph(f"Общий размер финального текста вместе с промптом: {count_tokens(text=text) + count_tokens(text=prompt)}")
 
     document.add_heading("Промпты\n", level=2)
@@ -147,7 +146,18 @@ def record_test(text:str, prompt:str, chunk_prompt:str, model:str, response:str)
     document.add_paragraph(f"Промпт для чанков: \n", style="List Bullet")
     document.add_paragraph(f"{chunk_prompt}\n")
 
-    document.add_heading("Финальный Ответ Модели\n", level=2)
+    document.add_heading("Ответы Модели\n", level=2)
+    document.add_heading("Порционные ответы\n", level=2)
+    table = document.add_table(rows=len(chunk_summaries) + 1, cols=2)
+    table.style = 'Table Grid'
+    header_cells = table.rows[0].cells
+    header_cells[0].text = 'Chunk'
+    header_cells[1].text = 'Summary'
+    for i, (chunk, summary) in enumerate(chunk_summaries.items(), start=1):
+        row_cells = table.rows[i].cells
+        row_cells[0].text = str(chunk)
+        row_cells[1].text = str(summary)
+
     document.add_paragraph(f"Ответ модели: \n\n")
     document.add_paragraph(f"{response}\n\n")
     document.add_paragraph(f"Финальный текст:\n\n ")
@@ -200,43 +210,28 @@ Map out with full detail:
     parser.add_argument("filepath", type=str, help="Filepath to pdf")
     args = parser.parse_args()
 
-    model_name = "phi4:14b"
+    response: ollama.ListResponse = ollama.list()
+    for model in response.models:
+        model_name = model.model
 
-    print(f"Processing model with {args.num_tokens} tokens: {model_name}\n\n")
+        if model_name == "nomic-embed-text:latest":
+            continue
 
-    extracted_text = extract(args.filepath)
-    chunks = chunk_text(extracted_text, args.num_tokens)
+        print(f"Processing model with {args.num_tokens} tokens: {model_name}\n\n")
 
-    chunk_summaries = []
-    for chunk in chunks:
-        summary = get_summary(chunk, chunk_prompt, model_name)
-        chunk_summaries.append(summary)
+        extracted_text = extract(args.filepath)
+        chunks = chunk_text(extracted_text, args.num_tokens)
 
-    final_summary = get_summary(" ".join(chunk_summaries), final_prompt, model_name)
+        chunk_summaries = {}
+        for i in range(len(chunks)):
+            summary = get_summary(chunks[i], chunk_prompt, model_name)
+            chunk_summaries[chunks[i]] = summary
 
-    record_test(" ".join(chunk_summaries), final_prompt, chunk_prompt, model_name, final_summary)
+        final_text = " ".join(chunk_summaries.keys())
 
-    # response: ollama.ListResponse = ollama.list()
-    # for model in response.models:
-    #     model_name = model.model
+        final_summary = get_summary(final_text, final_prompt, model_name)
 
-    #     if model_name == "nomic-embed-text:latest":
-    #         continue
-
-    #     print(f"Processing model with {args.num_tokens} tokens: {model_name}\n")
-        
-    #     extracted_text = extract(args.filepath)
-
-    #     chunks = chunk_text(extracted_text, args.num_tokens)
-
-    #     chunk_summaries = []
-    #     for chunk in chunks:
-    #         summary = get_summary(chunk, chunk_prompt, model_name)
-    #         chunk_summaries.append(summary)
-        
-    #     final_summary = get_summary(" ".join(chunk_summaries), final_prompt, model_name)
-
-    #     record_test(" ".join(chunk_summaries), final_prompt, model_name, final_summary)
+        record_test(final_text, chunk_summaries, final_prompt, chunk_prompt, model_name, final_summary)
 
 
 
