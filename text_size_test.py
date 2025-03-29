@@ -28,7 +28,8 @@ def extract(filepath:str) -> str:
             
             print(f"PROCESSING PAGE {i+1}\n\n")
             num_pages += 1
-            curr_text = curr_text.encode('utf-8', 'replace').decode('utf-8')
+
+            curr_text = curr_text.encode('utf-8', errors='replace').decode('utf-8', errors='replace')
 
             extracted_text += f"PAGE {i+1}\n" if i + 1 == 1 else f"\nPAGE {i+1}\n"
             extracted_text += curr_text
@@ -42,8 +43,10 @@ def extract(filepath:str) -> str:
         return ""
     except ValueError as e:
         print(f"ValueError: {e}")
+        return ""
     except Exception as e:
         print(f"Unexpected error: {e}")
+        return ""
 
 def chunk_text(text:str, num_tokens:int, overlap: float = 0.3) -> list[str]:
     """
@@ -81,7 +84,6 @@ def chunk_text(text:str, num_tokens:int, overlap: float = 0.3) -> list[str]:
 
     return chunks
 
-#TODO: handle NoneType model response and fix
 #TODO: fix memory usage issue (VRAM) - mistral
 def get_summary(text:str, prompt:str, model:str) -> str:
     """
@@ -101,7 +103,6 @@ def get_summary(text:str, prompt:str, model:str) -> str:
     except Exception as e:
         return f"Error: {str(e)}"
 
-#TODO: Figure out a way to parse chunk texts and model's responses as well
 def record_test(text:str, chunk_summaries:dict, prompt:str, chunk_prompt:str, model:str, response:str) -> None:
     """
     Records test in a txt file with text, prompt, model, and model's response
@@ -147,7 +148,7 @@ def record_test(text:str, chunk_summaries:dict, prompt:str, chunk_prompt:str, mo
     document.add_paragraph(f"{chunk_prompt}\n")
 
     document.add_heading("Ответы Модели\n", level=2)
-    document.add_heading("Порционные ответы\n", level=2)
+    document.add_heading("Порционные ответы\n", level=3)
     table = document.add_table(rows=len(chunk_summaries) + 1, cols=2)
     table.style = 'Table Grid'
     header_cells = table.rows[0].cells
@@ -158,9 +159,11 @@ def record_test(text:str, chunk_summaries:dict, prompt:str, chunk_prompt:str, mo
         row_cells[0].text = str(chunk)
         row_cells[1].text = str(summary)
 
-    document.add_paragraph(f"Ответ модели: \n\n")
+    document.add_page_break()
+
+    document.add_heading(f"Финальный Ответ модели: \n\n", level=3)
     document.add_paragraph(f"{response}\n\n")
-    document.add_paragraph(f"Финальный текст:\n\n ")
+    document.add_heading(f"Финальный текст:\n\n ", level=3)
     document.add_paragraph(f"{text}\n")
     
 
@@ -188,50 +191,88 @@ Map out with full detail:
 3. Narrative techniques, including structural choices, perspective, and literary devices.
 4. A linguistic breakdown covering syntax, diction, tone, narrative voice, and literary techniques.
 """
-    final_prompt = """Conduct a holistic, precision-driven analysis of the following summaries. Your goal is to maintain 100% information integrity while preserving exact contextual nuances.
+    final_prompt = """Synthesize and refine the following chunk summaries into a single, cohesive analysis of the text while ensuring no loss of critical details of the plot, characters, etc.
 
-Deliver:
+1. Eliminate redundant information and merge similar themes.
+2. Resolve inconsistencies between chunk summaries while maintaining narrative accuracy.
+3. Preserve essential details, thematic depth, and symbolic/metaphorical interpretations.
+4. Identify overarching patterns and insights that emerge when considering the full text holistically.
 
+Provide a final summary that includes:
 1. An exhaustive factual summary capturing all key events and details without distortion or omission.
-2. A thematic analysis exploring core ideas and recurring motifs.
-3. A deep symbolic/metaphorical interpretation supported by textual evidence.
-4. Extraction of five pivotal narrative components with justification.
-
-Map out with full detail:
-
-1. All character interactions and relationships.
 2. The complete plot progression with no missing elements.
-3. Narrative techniques, including structural choices, perspective, and literary devices.
-4. A linguistic breakdown covering syntax, diction, tone, narrative voice, and literary techniques.
+3. A thematic analysis exploring core ideas and recurring motifs across chunks.
+4. A deep symbolic/metaphorical interpretation supported by textual evidence.
+5. Extraction of five pivotal narrative components with justification.
+6. All character interactions and relationships.
+7. A linguistic breakdown covering syntax, diction, tone, narrative voice, and literary techniques.
+
+Ensure the response is **cohesive, structured, and contextually precise** while removing redundancy. Maintain a professional and analytical tone.
+
 """
 
     parser = argparse.ArgumentParser(description="User input")
     parser.add_argument("num_tokens", type=int, help="Number of tokens to process at a time")
     parser.add_argument("filepath", type=str, help="Filepath to pdf")
+
+    # arguments for model outputs
+    parser.add_argument("--llama", action="store_true", help="output a llama3.1:8b model response") # option to engage base llama model
+    parser.add_argument("--llama_instruct", action="store_true", help="output a llama-instruct model response") # option to engage llama-instruct
+    parser.add_argument("--qwen", action="store_true", help="output a qwen model response") # option to engage base qwen2.5 model
+    parser.add_argument("--qwen_instruct", action="store_true", help="output a qwen-instruct model response") # option to engage qwen_instruct
+    parser.add_argument("--mistral", action="store_true", help="output a mistral 12b model response") # option to engange base mistral model
+    parser.add_argument("--mistral_instruct", action="store_true", help="output a mistral-instruct model response") # option to engange mistral-instruct model
+    parser.add_argument("--deepseek", action="store_true", help="output a deepseek 14b response")
+    parser.add_argument("--deepseek_distill", action="store_true", help="output a deepseek qwen distill response")
+    parser.add_argument("--phi", action="store_true", help="output a phi4 model response")
+    parser.add_argument("--gemma", action="store_true", help="output a gemma model response")
     args = parser.parse_args()
 
-    response: ollama.ListResponse = ollama.list()
-    for model in response.models:
-        model_name = model.model
+    if args.llama_instruct:
+        model_name = "llama3.1:8b-instruct-fp16"
+    elif args.llama:
+        model_name = "llama3.1:8b"
+    elif args.qwen:
+        model_name = "qwen2.5:14b"
+    elif args.qwen_instruct:
+        model_name = "qwen2.5:14b-instruct-fp16"
+    elif args.mistral:
+        model_name = "mistral-nemo:12b"
+    elif args.mistral_instruct:
+        model_name = "mistral-nemo:12b-instruct-2407-fp16"
+    elif args.deepseek:
+        model_name = "deepseek-r1:14b"
+    elif args.deepseek_distill:
+        model_name = "deepseek-r1:14b-qwen-distill-fp16"
+    elif args.phi:
+        model_name = "phi4:14b"
+    elif args.gemma:
+        model_name = "gemma3:27b"
 
-        if model_name == "nomic-embed-text:latest":
-            continue
+    # #response: ollama.ListResponse = ollama.list()
+    # models = ["phi4:14b", "gemma3:27b", "llama3.1:8b", "llama3.1:8b-instruct-fp16", "deepseek-r1:14b", "deepseek-r1:14b-qwen-distill-fp16", "qwen2.5:14b", "qwen2.5:14b-instruct-fp16", "mistral-nemo:12b", "mistral-nemo:12b-instruct-2407-fp16"]
+    # for model_name in models:
+    #     #model_name = model.model
 
-        print(f"Processing model with {args.num_tokens} tokens: {model_name}\n\n")
+    #     # if model_name == "nomic-embed-text:latest":
+    #     #     continue
 
-        extracted_text = extract(args.filepath)
-        chunks = chunk_text(extracted_text, args.num_tokens)
 
-        chunk_summaries = {}
-        for i in range(len(chunks)):
-            summary = get_summary(chunks[i], chunk_prompt, model_name)
-            chunk_summaries[chunks[i]] = summary
+    print(f"\nProcessing model {model_name} with {args.num_tokens} token chunks. \n\n")
 
-        final_text = " ".join(chunk_summaries.keys())
+    extracted_text = extract(args.filepath)
+    chunks = chunk_text(extracted_text, args.num_tokens)
 
-        final_summary = get_summary(final_text, final_prompt, model_name)
+    chunk_summaries = {}
+    for i in range(len(chunks)):
+        summary = get_summary(chunks[i], chunk_prompt, model_name)
+        chunk_summaries[chunks[i]] = summary
 
-        record_test(final_text, chunk_summaries, final_prompt, chunk_prompt, model_name, final_summary)
+    final_text = " ".join(chunk_summaries.values())
+
+    final_summary = get_summary(final_text, final_prompt, model_name)
+
+    record_test(final_text, chunk_summaries, final_prompt, chunk_prompt, model_name, final_summary)
 
 
 
